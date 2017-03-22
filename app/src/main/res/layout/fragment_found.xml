@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:paddingBottom="@dimen/default_general_margin"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="#ffffff"
+            android:drawableLeft="@drawable/ic_hint_search"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="7dp"
+            android:text="搜索视频,番剧,up主或AV号"
+            android:drawableRight="@drawable/ic_scan"
+            android:textColor="#9c9c9c"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="大家都在搜"
+            android:textColor="#9c9c9c"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="大家都在搜"
+            android:textColor="#9c9c9c"
+            android:textSize="14sp" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/tags_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_tiny_padding"
+            android:layout_marginStart="@dimen/default_tiny_padding"
+            app:max_select="-1" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/hide_tags_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_tiny_padding"
+            android:layout_marginStart="@dimen/default_tiny_padding"
+            app:max_select="-1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_xingqu_quan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_group"
+                android:drawablePadding="10dp"
+                android:padding="14dp"
+                android:text="兴趣圈"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#44000000" />
+
+            <TextView
+                android:id="@+id/tv_huatizhong_xin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_header_topic_center"
+                android:drawablePadding="10dp"
+                android:padding="14dp"
+                android:text="话题中心"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#44000000" />
+
+            <TextView
+                android:id="@+id/tv_huodong_zhong_xin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_header_activity_center"
+                android:drawablePadding="10dp"
+                android:padding="14dp"
+                android:text="活动中心"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#44000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_yuan_chuang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_btn_rank_original"
+                android:drawablePadding="10dp"
+                android:padding="14dp"
+                android:text="原创排行榜"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#44000000" />
+
+            <TextView
+                android:id="@+id/tv_quan_qu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_btn_rank_all"
+                android:drawablePadding="10dp"
+                android:padding="14dp"
+                android:text="全区排行榜"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#44000000" />
+
+            <TextView
+                android:id="@+id/tv_you_xi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_btn_game"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:padding="14dp"
+                android:text="游戏"
+                android:textColor="@color/black_80"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
