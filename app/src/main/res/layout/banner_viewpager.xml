@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/guanzu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -28,27 +29,34 @@
             android:text="关注"/>
 
         <TextView
+            android:id="@+id/center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:drawableTop="@drawable/live_home_live_center"
             android:text="中心"/>
+
         <TextView
+            android:id="@+id/vedio"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:drawableTop="@drawable/live_home_clip_video"
             android:text="小视频"/>
+
         <TextView
+            android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:drawableTop="@drawable/live_home_search_room"
             android:text="搜索"/>
+
         <TextView
+            android:id="@+id/type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

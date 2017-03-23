@@ -27,40 +27,19 @@
             android:textColor="#9c9c9c"
             android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="大家都在搜"
-            android:textColor="#9c9c9c"
-            android:textSize="14sp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="大家都在搜"
-            android:textColor="#9c9c9c"
-            android:textSize="14sp" />
-
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/tags_layout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_tiny_padding"
-            android:layout_marginStart="@dimen/default_tiny_padding"
-            app:max_select="-1" />
+            android:layout_height="wrap_content">
 
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/hide_tags_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_tiny_padding"
-            android:layout_marginStart="@dimen/default_tiny_padding"
-            app:max_select="-1" />
+            <com.github.hymanme.tagflowlayout.TagFlowLayout
+                android:id="@+id/tag_flow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                app:expandHint="查看更多"
+                app:foldHint="点击缩回" />
+
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

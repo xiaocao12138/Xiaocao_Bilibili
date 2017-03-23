@@ -4,35 +4,37 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.github.hymanme.tagflowlayout.OnTagClickListener;
+import com.github.hymanme.tagflowlayout.TagAdapter;
+import com.github.hymanme.tagflowlayout.TagFlowLayout;
+import com.github.hymanme.tagflowlayout.tags.ColorfulTagView;
+import com.github.hymanme.tagflowlayout.tags.DefaultTagView;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
 import com.myproject.bilibili.utils.AppNetConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by chen on 2017/3/21 19:13.
- * 作用:XXXX
+ * 作用:发现页面
  */
 
 public class FoundFragment extends BaseFragment {
+
     public static final String NAME = "name";
-    @BindView(R.id.tags_layout)
-    TagFlowLayout tagsLayout;
-    @BindView(R.id.hide_tags_layout)
-    TagFlowLayout hideTagsLayout;
+
     @BindView(R.id.tv_xingqu_quan)
     TextView tvXingquQuan;
     @BindView(R.id.tv_huatizhong_xin)
@@ -45,7 +47,11 @@ public class FoundFragment extends BaseFragment {
     TextView tvQuanQu;
     @BindView(R.id.tv_you_xi)
     TextView tvYouXi;
+    @BindView(R.id.tag_flow_layout)
+    TagFlowLayout tagFlowLayout;
+
     private LayoutInflater mInflater;
+    private List<FoundBean.DataBean.ListBean> list;
 
     @Override
     public View initView() {
@@ -65,7 +71,7 @@ public class FoundFragment extends BaseFragment {
         OkHttpUtils.get().url(AppNetConfig.DISCOVER_TAG).build().execute(new StringCallback() {
 
             @Override
-            public void onError(okhttp3.Call call, Exception e, int id) {
+            public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "onError: " + e.getMessage());
             }
 
@@ -81,38 +87,56 @@ public class FoundFragment extends BaseFragment {
 
         FoundBean foundBean = JSON.parseObject(json, FoundBean.class);
 
-        List<FoundBean.DataBean.ListBean> list = foundBean.getData().getList();
-        final String[] mVals = new String[list.size()];
+        list = foundBean.getData().getList();
+        initColor();
 
-        for (int i = 0; i < mVals.length; i++) {
-            mVals[i] = list.get(i).getKeyword();
-        }
 
-        if (list != null && list.size() > 0)
+        MyTagAdapter tagAdapter = new MyTagAdapter();
+        tagAdapter.addAllTags(list);
+        tagFlowLayout.setTagAdapter(tagAdapter);
 
-            tagsLayout.setAdapter(new TagAdapter<String>(mVals) {
+        initListener();
 
-                @Override
-                public View getView(FlowLayout parent, int position, String s) {
-                    TextView tv = (TextView) mInflater.inflate(R.layout.tv,
-                            tagsLayout, false);
-                    tv.setText(s);
-                    return tv;
-                }
-            });
+    }
 
-        tagsLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+    private void initListener() {
+        tagFlowLayout.setTagListener(new OnTagClickListener() {
             @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
+            public void onClick(TagFlowLayout parent, View view, int position) {
+                Intent intent = new Intent(getActivity() , TabMoreAcivity.class);
+                intent.putExtra(NAME , list.get(position));
+                mContext.startActivity(intent);
+            }
 
-//                Toast.makeText(getActivity(), mVals[position], Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), TabMoreAcivity.class);
-                intent.putExtra(NAME, mVals[position]);
-                startActivity(intent);
+            @Override
+            public void onLongClick(TagFlowLayout parent, View view, int position) {
 
-                return true;
             }
         });
+    }
+
+    private void initColor() {
+        tagFlowLayout.setTitle("大家都不想搜");
+        tagFlowLayout.setTitleTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                tagFlowLayout.setTitleTextSize(12);
+        //最小显示高度(单位dp)
+        tagFlowLayout.setMinVisibleHeight(100);
+        //最大显示高度(单位dp)
+        tagFlowLayout.setMaxVisibleHeight(400);
+        tagFlowLayout.setAnimationDuration(600);
+        //设置背景颜色
+        tagFlowLayout.setBackGroundColor(getResources().getColor(R.color.primary_text));
+    }
+
+    class MyTagAdapter extends TagAdapter<FoundBean.DataBean.ListBean> {
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //定制tag的样式，包括背景颜色，点击时背景颜色，背景形状等
+            DefaultTagView textView = new ColorfulTagView(mContext);
+            textView.setText(list.get(position).getKeyword());
+            return textView;
+        }
     }
 
     /*LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) svView.getLayoutParams();
@@ -140,25 +164,23 @@ public class FoundFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_xingqu_quan:
-                mContext.startActivity(new Intent(getActivity() , XingquActivity.class));
+                mContext.startActivity(new Intent(getActivity(), XingquActivity.class));
                 break;
             case R.id.tv_huatizhong_xin:
-                mContext.startActivity(new Intent(getActivity() , HuaTiActivity.class));
+                mContext.startActivity(new Intent(getActivity(), HuaTiActivity.class));
                 break;
             case R.id.tv_huodong_zhong_xin:
-                mContext.startActivity(new Intent(getActivity() , HuodongActivity.class));
+                mContext.startActivity(new Intent(getActivity(), HuaTiActivity.class));
                 break;
             case R.id.tv_yuan_chuang:
-                mContext.startActivity(new Intent(getActivity() , OriginalActivity.class));
+                mContext.startActivity(new Intent(getActivity(), OriginalActivity.class));
                 break;
             case R.id.tv_quan_qu:
-                mContext.startActivity(new Intent(getActivity() , OriginalActivity.class));
+                mContext.startActivity(new Intent(getActivity(), OriginalActivity.class));
                 break;
             case R.id.tv_you_xi:
                 break;
         }
     }
-
-
 
 }

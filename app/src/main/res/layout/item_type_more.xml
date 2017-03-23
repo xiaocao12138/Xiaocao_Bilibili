@@ -20,14 +20,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/live_item_layout_height"
+            android:layout_height="200dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/item_live_cover"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/live_item_image_height"
-                android:scaleType="center" />
+                android:layout_height="@dimen/live_item_image_height">
+                <ImageView
+                    android:id="@+id/iv_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/live_item_image_height"
+                    android:scaleType="center"/>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,21 +41,13 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/default_tiny_padding">
 
-                <com.myproject.bilibili.view.CircleImageView
-                    android:id="@+id/item_live_user_cover"
-                    android:layout_width="@dimen/user_avatar_small_size"
-                    android:layout_height="@dimen/user_avatar_small_size"
-                    android:layout_gravity="start|top"
-                    android:src="@drawable/ico_user_default"
-                    app:border_color="@android:color/white"
-                    app:border_width="@dimen/circle_default_width"/>
-
                 <TextView
-                    android:id="@+id/item_live_title"
+                    android:id="@+id/tv_type_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:lines="2"
+                    android:text="小幸运没火的时候"
                     android:textColor="@color/font_normal"
                     android:textSize="@dimen/default_small_text_size"
                     android:layout_marginLeft="@dimen/default_tiny_margin" />
@@ -62,28 +59,25 @@
                 android:padding="@dimen/default_tiny_padding">
 
                 <TextView
-                    android:id="@+id/item_live_user"
+                    android:id="@+id/tv_play_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_alpha_45"
-                    android:layout_centerInParent="true"
-                    android:textSize="@dimen/default_tiny_text_size"
-                    android:layout_marginLeft="@dimen/video_info_count_text_margin_start"
-                    android:layout_alignParentLeft="true" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="5dp"
+                    android:drawableLeft="@drawable/ic_info_views"
+                    android:text="13.8万"
+                    android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/item_live_count"
+                    android:id="@+id/tv_danmu_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="2dp"
-                    android:drawablePadding="@dimen/default_tiny_margin"
-                    android:textColor="@color/black_alpha_45"
-                    android:textSize="@dimen/default_tiny_text_size"
-                    android:layout_marginRight="@dimen/video_info_count_text_margin_start"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:drawableLeft="@drawable/ic_watching" />
-
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/ic_info_danmakus"
+                    android:text="13.8万"
+                    android:textSize="16sp"/>
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_head_live"/>
+
+        <TextView
+            android:id="@+id/zhan_qu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_head"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="绘画专区"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_live_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:drawableRight="@drawable/ic_gray_arrow_right"
+                    android:drawablePadding="5dp"
+                    android:text="个正在直播"
+                    android:textSize="16sp"/>
+        </LinearLayout>
+
+
+
+</RelativeLayout>

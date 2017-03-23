@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by chen on 2017/3/21 19:13.
- * 作用:XXXX
+ * 作用:推荐页面
  */
 
 public class RecommendFragment extends BaseFragment {

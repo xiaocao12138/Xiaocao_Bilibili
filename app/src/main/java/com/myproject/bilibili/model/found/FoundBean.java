@@ -1,5 +1,6 @@
 package com.myproject.bilibili.model.found;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -69,7 +70,7 @@ public class FoundBean {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable {
             /**
              * keyword : 人渣的本愿
              * status : keep

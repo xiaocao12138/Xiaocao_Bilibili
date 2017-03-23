@@ -1,4 +1,4 @@
-package com.myproject.bilibili.model.found;
+package com.myproject.bilibili.model.found.fragment;
 
 import android.graphics.Color;
 import android.view.Gravity;

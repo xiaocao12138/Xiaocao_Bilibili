@@ -1,4 +1,4 @@
-package com.myproject.bilibili.model.live;
+package com.myproject.bilibili.model.live.bean;
 
 import java.util.List;
 

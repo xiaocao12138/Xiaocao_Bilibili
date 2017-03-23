@@ -2,12 +2,10 @@ package com.myproject.bilibili.model.found;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -26,10 +24,8 @@ public class HuodongActivity extends AppCompatActivity {
 
     @BindView(R.id.toolBar)
     Toolbar toolBar;
-    @BindView(R.id.recycle)
-    RecyclerView recycle;
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.list_view)
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,7 @@ public class HuodongActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.i("TAG", "onError: "+e.getMessage());
+                        Log.i("TAG", "onError: " + e.getMessage());
                     }
 
                     @Override
@@ -70,10 +66,9 @@ public class HuodongActivity extends AppCompatActivity {
             HuaTiBean huaTiBean = JSON.parseObject(json, HuaTiBean.class);
             List<HuaTiBean.ListBean> list = huaTiBean.getList();
 
-            HuaTiAdapter adapter = new HuaTiAdapter(this , list);
-            recycle.setAdapter(adapter);
+            HuaTiAdapter adapter = new HuaTiAdapter(this, list);
+            listView.setAdapter(adapter);
 
-            recycle.setLayoutManager(new LinearLayoutManager(this));
 
         } else {
             Log.e("TAG", "HuatiActivity initData()联网失败");

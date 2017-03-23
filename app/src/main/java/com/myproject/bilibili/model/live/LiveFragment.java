@@ -1,7 +1,6 @@
 package com.myproject.bilibili.model.live;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.live.bean.LiveBean;
 import com.myproject.bilibili.utils.AppNetConfig;
 import com.myproject.bilibili.view.CustomEmptyView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,7 +22,7 @@ import okhttp3.Call;
 
 /**
  * Created by chen on 2017/3/21 19:12.
- * 作用:XXXX
+ * 作用:直播页面
  */
 
 public class LiveFragment extends BaseFragment {
@@ -49,7 +49,6 @@ public class LiveFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-
         getDataFromNet();
 
     }
@@ -82,7 +81,6 @@ public class LiveFragment extends BaseFragment {
             adapter = new LiveAdapter(mContext , data);
             recycle.setAdapter(adapter);
             //设置布局管理
-            //设置布局管理器
             recycle.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
         }else {

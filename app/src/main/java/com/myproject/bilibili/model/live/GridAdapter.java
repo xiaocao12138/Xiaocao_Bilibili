@@ -8,7 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.live.bean.LiveBean;
+import com.myproject.bilibili.view.CircleImageView;
 
 import java.util.List;
 
@@ -55,26 +58,38 @@ public class GridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        LiveBean.DataBean.PartitionsBean partitionsBean = partitions.get(position);
-
-        Glide.with(mContect).load(partitionsBean.getLives().get(position).getCover().getSrc()).into(holder.ivGrid);
-        holder.tvHomeName.setText(partitionsBean.getLives().get(position).getTitle());
-        holder.tvPerName.setText(partitionsBean.getLives().get(position).getOwner().getName());
-//        holder.number.setText(partitionsBean.getLives().get(position).getOnline());
+        List<LiveBean.DataBean.PartitionsBean.LivesBean> lives = partitions.get(position).getLives();
+        LiveBean.DataBean.PartitionsBean.LivesBean livesBean = lives.get(position);
+        Glide.with(mContect)
+                .load(livesBean.getCover().getSrc())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.bili_default_image_tv)
+                .into(holder.itemLiveCover);
+        Glide.with(mContect)
+                .load(livesBean.getCover().getSrc())
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.ico_user_default)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.itemLiveUserCover);
+        holder.itemLiveTitle.setText(livesBean.getTitle());
+        holder.itemLiveUser.setText(livesBean.getOwner().getName());
+        holder.itemLiveCount.setText(String.valueOf(livesBean.getOnline()));
 
         return convertView;
     }
 
-
-    class ViewHolder {
-        @BindView(R.id.iv_grid)
-        ImageView ivGrid;
-        @BindView(R.id.tv_home_name)
-        TextView tvHomeName;
-        @BindView(R.id.tv_per_name)
-        TextView tvPerName;
-        @BindView(R.id.number)
-        TextView number;
+    static class ViewHolder {
+        @BindView(R.id.item_live_cover)
+        ImageView itemLiveCover;
+        @BindView(R.id.item_live_user_cover)
+        CircleImageView itemLiveUserCover;
+        @BindView(R.id.item_live_title)
+        TextView itemLiveTitle;
+        @BindView(R.id.item_live_user)
+        TextView itemLiveUser;
+        @BindView(R.id.item_live_count)
+        TextView itemLiveCount;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
