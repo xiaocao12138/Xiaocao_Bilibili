@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:numColumns="2"/>e
+        android:numColumns="2"/>
+
+    <include layout="@layout/layout_bottom" />
 
 </LinearLayout>

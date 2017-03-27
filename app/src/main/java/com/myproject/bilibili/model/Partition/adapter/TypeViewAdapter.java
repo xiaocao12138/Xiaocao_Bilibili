@@ -33,7 +33,7 @@ public class TypeViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.size();
+        return data.size()/2*2;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TypeViewAdapter extends BaseAdapter {
     }
 
 
-    static class ViewHolder {
+    class ViewHolder {
         @BindView(R.id.iv_type)
         ImageView ivType;
         @BindView(R.id.tv_type_name)
@@ -79,6 +79,26 @@ public class TypeViewAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        listener.setOnClick(v);
+                    }
+                }
+            });
         }
+    }
+
+
+
+    public interface OnItemClickListener{
+        void setOnClick(View view);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 }

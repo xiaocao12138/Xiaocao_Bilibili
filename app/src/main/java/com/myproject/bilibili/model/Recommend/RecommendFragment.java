@@ -1,17 +1,21 @@
 package com.myproject.bilibili.model.Recommend;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.Recommend.activity.RecommendTagActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by chen on 2017/3/21 19:13.
@@ -24,6 +28,8 @@ public class RecommendFragment extends BaseFragment {
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+    @BindView(R.id.iv_recommend_more)
+    ImageView ivRecommendMore;
     private List<BaseFragment> baseFragments;
     private RecommendPageAdapter adapter;
 
@@ -54,5 +60,10 @@ public class RecommendFragment extends BaseFragment {
         baseFragments = new ArrayList<>();
         baseFragments.add(new ZongheFragment());
         baseFragments.add(new DongtaiFragment());
+    }
+
+    @OnClick(R.id.iv_recommend_more)
+    public void onClick() {
+        startActivity(new Intent(getActivity() , RecommendTagActivity.class));
     }
 }

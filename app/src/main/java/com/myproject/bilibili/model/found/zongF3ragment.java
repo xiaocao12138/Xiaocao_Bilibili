@@ -2,12 +2,12 @@ package com.myproject.bilibili.model.found;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.found.bean.TAgBean;
 import com.myproject.bilibili.utils.AppNetConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

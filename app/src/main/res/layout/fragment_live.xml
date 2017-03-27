@@ -6,25 +6,31 @@
     android:layout_height="match_parent">
 
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none" />
 
-        <com.myproject.bilibili.view.CustomEmptyView
-            android:id="@+id/empty_layout"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/but_load_more"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:background="@android:color/white"
+            android:layout_margin="30dp"
+            android:text="查看更多"
+            android:textSize="16sp"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
 
 </android.support.v4.widget.SwipeRefreshLayout>

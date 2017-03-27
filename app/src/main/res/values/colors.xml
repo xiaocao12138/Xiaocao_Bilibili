@@ -90,4 +90,10 @@
     <color name="red_dark">#C62828</color>
     <color name="red_trans">#99F44336</color>
 
+    <color name="colorWhite">#FFF</color>
+    <color name="divider">#e6e6e6</color>
+    <color name="text_black">#737373</color>
+    <color name="text_grey">#9DA0A3</color>
+    <color name="transparent">#0000</color>
+
 </resources>

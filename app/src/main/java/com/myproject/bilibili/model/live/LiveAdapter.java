@@ -14,7 +14,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.activity.BannerInfoActivity;
+import com.myproject.bilibili.activity.LiveCenterActivity;
+import com.myproject.bilibili.model.live.activity.SmallVideoActivity;
+import com.myproject.bilibili.model.live.adapter.RecommendLiveAdapter;
+import com.myproject.bilibili.model.live.bean.LIveRecomendBean;
 import com.myproject.bilibili.model.live.bean.LiveBean;
+import com.myproject.bilibili.utils.Constants;
+import com.myproject.bilibili.view.HotGridView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
@@ -36,37 +42,58 @@ public class LiveAdapter extends RecyclerView.Adapter {
 
     public static final String TITLE = "title";
     public static final String URL = "url";
+    public static final String ONLINE = "online";
     private final Context mContect;
-    private final LiveBean.DataBean data;
+
     private final LayoutInflater inflater;
     /**
      * BANNER
      */
     public static final int BANNER = 0;
+
+    /**
+     * RECCOMEND
+     */
+    public static final int RECCOMEND = 1;
+
+    /**
+     * RECCOMEND2
+     */
+    public static final int RECCOMEND2 = 2;
+
     /**
      * GRID
      */
-    public static final int GRID = 1;
+    public static final int GRID = 3;
+
+    private final LiveBean.DataBean data;
+    private final LIveRecomendBean.DataBean.RecommendDataBean recommendData;
     /**
      * 当前类型
      */
     public int currentType = BANNER;
 
-    public LiveAdapter(Context mContect, LiveBean.DataBean data) {
+    public LiveAdapter(Context mContect, LiveBean.DataBean data, LIveRecomendBean.DataBean.RecommendDataBean recommendData) {
         this.mContect = mContect;
         this.data = data;
+        this.recommendData = recommendData;
         inflater = LayoutInflater.from(mContect);
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return data.getPartitions().size() + 3;
     }
+
 
     @Override
     public int getItemViewType(int position) {
         if (position == BANNER) {
             currentType = BANNER;
+        } else if (position == RECCOMEND) {
+            currentType = RECCOMEND;
+        } else if (position == RECCOMEND2) {
+            currentType = RECCOMEND2;
         } else if (position == GRID) {
             currentType = GRID;
         }
@@ -77,6 +104,10 @@ public class LiveAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == BANNER) {
             return new BannerViewHolder(mContect, inflater.inflate(R.layout.banner_viewpager, null));
+        } else if (viewType == RECCOMEND) {
+            return new RecommendViewHolder(mContect, inflater.inflate(R.layout.recommend_live, null));
+        } else if (viewType == RECCOMEND2) {
+            return new Recommend2ViewHolder(mContect, inflater.inflate(R.layout.recommend_live, null));
         } else if (viewType == GRID) {
             return new GridViewHolder(mContect, inflater.inflate(R.layout.grid_viewpager, null));
         }
@@ -87,13 +118,21 @@ public class LiveAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (getItemViewType(position) == BANNER) {
-            BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
+            BannerViewHolder viewHolder = (BannerViewHolder) holder;
             //绑定数据
-            bannerViewHolder.setData(data.getBanner());
+            viewHolder.setData(data.getBanner());
+        } else if (getItemViewType(position) == RECCOMEND) {
+            RecommendViewHolder viewHolder = (RecommendViewHolder) holder;
+            //绑定数据
+            viewHolder.setData(recommendData);
+        } else if (getItemViewType(position) == RECCOMEND2) {
+            Recommend2ViewHolder viewHolder = (Recommend2ViewHolder) holder;
+            //绑定数据
+            viewHolder.setData(recommendData);
         } else if (getItemViewType(position) == GRID) {
-            GridViewHolder gridViewHolder = (GridViewHolder) holder;
+            GridViewHolder viewHolder = (GridViewHolder) holder;
             //绑定数据
-            gridViewHolder.setData(data.getPartitions().get(position));
+            viewHolder.setData(data.getPartitions().get(position - 3));
         }
 
     }
@@ -148,8 +187,8 @@ public class LiveAdapter extends RecyclerView.Adapter {
                 public void OnBannerClick(int position) {
 //                    Toast.makeText(mContext, "position" + position , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, BannerInfoActivity.class);
-                    intent.putExtra(TITLE, bannerinfo.get(position).getTitle());
-                    intent.putExtra(URL, bannerinfo.get(position).getLink());
+                    intent.putExtra(Constants.TITLE, bannerinfo.get(position).getTitle());
+                    intent.putExtra(Constants.URL, bannerinfo.get(position).getLink());
                     mContect.startActivity(intent);
                 }
             });
@@ -164,9 +203,11 @@ public class LiveAdapter extends RecyclerView.Adapter {
                     break;
                 case R.id.center:
                     Toast.makeText(mContext, "中心", Toast.LENGTH_SHORT).show();
+                    mContect.startActivity(new Intent(mContext, LiveCenterActivity.class));
                     break;
                 case R.id.vedio:
-                    Toast.makeText(mContext, "小视频", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "小视频", Toast.LENGTH_SHORT).show();
+                    mContect.startActivity(new Intent(mContext, SmallVideoActivity.class));
                     break;
                 case R.id.search:
                     Toast.makeText(mContext, "搜索", Toast.LENGTH_SHORT).show();
@@ -189,6 +230,7 @@ public class LiveAdapter extends RecyclerView.Adapter {
         TextView tvLiveNumber;
         @BindView(R.id.gv_live)
         GridView gvLive;
+
         private GridAdapter adapter;
 
         GridViewHolder(Context mContect, View view) {
@@ -197,19 +239,164 @@ public class LiveAdapter extends RecyclerView.Adapter {
             this.mContect = mContect;
         }
 
-        public void setData(LiveBean.DataBean.PartitionsBean partitionsBean) {
+        public void setData(final LiveBean.DataBean.PartitionsBean partitionsBean) {
 
-            List<LiveBean.DataBean.PartitionsBean> partitions = data.getPartitions();
+            zhanQu.setText(partitionsBean.getPartition().getName());
+            tvLiveNumber.setText(String.valueOf(partitionsBean.getPartition().getCount()));
+            Glide.with(mContect)
+                    .load(partitionsBean.getPartition().getSub_icon().getSrc())
+                    .into(ivHead);
+
+            adapter = new GridAdapter(mContect, partitionsBean);
+            gvLive.setAdapter(adapter);
+
+            /*adapter.setOnItemClickListener(new GridAdapter.OnItemClickListener() {
+                @Override
+                public void OnClick(View view, int position) {
+                    Intent intent = new Intent(mContect, DanmkuVideoActivity.class);
+                    intent.putExtra(URL, partitionsBean.getLives().get(position).getPlayurl());
+                    intent.putExtra(TITLE, partitionsBean.getLives().get(position).getTitle());
+                    intent.putExtra(ONLINE, partitionsBean.getLives().get(position).getOnline());
+                    mContect.startActivity(intent);
+                }
+            });*/
+        }
+    }
+
+    class RecommendViewHolder extends RecyclerView.ViewHolder {
+        private final Context mContext;
+
+        @BindView(R.id.iv_head)
+        ImageView ivHead;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_live_number)
+        TextView tvLiveNumber;
+        @BindView(R.id.recommend_banner)
+        Banner recommendBanner;
+        @BindView(R.id.recommend_grid_view)
+        HotGridView recommendGridView;
+        private List<String> images;
+        private RecommendLiveAdapter adapter;
+
+        RecommendViewHolder(Context mContext, View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            this.mContext = mContext;
+        }
 
 
-                zhanQu.setText(partitionsBean.getPartition().getName());
-                tvLiveNumber.setText(partitionsBean.getPartition().getCount()+"");
-                Glide.with(mContect)
-                        .load(partitionsBean.getPartition().getSub_icon().getSrc())
-                        .into(ivHead);
+        public void setData(LIveRecomendBean.DataBean.RecommendDataBean recommendData) {
 
-                adapter = new GridAdapter(mContect, partitions);
-                gvLive.setAdapter(adapter);
+
+            Glide.with(mContext)
+                    .load(recommendData.getPartition().getSub_icon().getSrc())
+                    .crossFade()
+                    .into(ivHead);
+            tvName.setText(recommendData.getPartition().getName());
+            tvLiveNumber.setText(String.valueOf(recommendData.getPartition().getCount()));
+
+            recommendBanner.setVisibility(View.GONE);
+            /*images = new ArrayList<>();
+            images.add(recommendData.getBanner_data().get(0).getCover().getSrc());
+            recommendBanner.setImages(images)
+                    .setImageLoader(new ImageLoader() {
+                        @Override
+                        public void displayImage(Context context, Object path, ImageView imageView) {
+                            Glide.with(context)
+                                    .load(path)
+                                    .crossFade()
+                                    .into(imageView);
+                        }
+                    }).start();
+
+
+            //设置动画效果---手风琴效果
+            recommendBanner.setBannerAnimation(BackgroundToForegroundTransformer.class);
+
+            recommendBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    Toast.makeText(mContext, "position" + position, Toast.LENGTH_SHORT).show();
+                }
+            });*/
+
+
+            adapter = new RecommendLiveAdapter(mContext, currentType, recommendData.getLives());
+            recommendGridView.setAdapter(adapter);
+
+
+        }
+    }
+
+    class Recommend2ViewHolder extends RecyclerView.ViewHolder {
+        private final Context mContext;
+
+        @BindView(R.id.iv_head)
+        ImageView ivHead;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_live_number)
+        TextView tvLiveNumber;
+        @BindView(R.id.tv_01)
+        TextView tv01;
+        @BindView(R.id.tv_02)
+        TextView tv02;
+        @BindView(R.id.recommend_banner)
+        Banner recommendBanner;
+        @BindView(R.id.recommend_grid_view)
+        HotGridView recommendGridView;
+        private List<String> images;
+        private RecommendLiveAdapter adapter;
+
+        Recommend2ViewHolder(Context mContext, View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            this.mContext = mContext;
+        }
+
+
+        public void setData(LIveRecomendBean.DataBean.RecommendDataBean recommendData) {
+
+
+            ivHead.setVisibility(View.GONE);
+            tvName.setVisibility(View.GONE);
+            tvLiveNumber.setVisibility(View.GONE);
+            tv01.setVisibility(View.GONE);
+            tv02.setVisibility(View.GONE);
+
+            images = new ArrayList<>();
+
+            images.add(recommendData.getBanner_data().get(0).getCover().getSrc());
+            /*for (int i = 0; i < recommendData.getBanner_data().size(); i++) {
+                images.add(recommendData.getBanner_data().get(1).getCover().getSrc());
+            }*/
+
+            recommendBanner.setImages(images)
+                    .setImageLoader(new ImageLoader() {
+                        @Override
+                        public void displayImage(Context context, Object path, ImageView imageView) {
+                            Glide.with(context)
+                                    .load(path)
+                                    .crossFade()
+                                    .into(imageView);
+                        }
+                    }).start();
+
+
+            //设置动画效果---手风琴效果
+            recommendBanner.setBannerAnimation(BackgroundToForegroundTransformer.class);
+
+            recommendBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    Toast.makeText(mContext, "position" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            adapter = new RecommendLiveAdapter(mContext, currentType, recommendData.getLives());
+            recommendGridView.setAdapter(adapter);
 
         }
     }

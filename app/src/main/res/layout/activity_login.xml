@@ -1,13 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.myproject.bilibili.activity.LoginActivity">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/app_bar_default_elevation">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/logo_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/iv_icon_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_22"
+            android:layout_alignParentLeft="true" />
+
+        <ImageView
+            android:id="@+id/iv_icon_centre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/default_tiny_padding"
+            android:src="@drawable/ic_bili_logo_2016" />
+
+        <ImageView
+            android:id="@+id/iv_icon_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_33"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/login_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/default_general_margin"
+                android:ellipsize="start"
+                android:hint="@string/login_hint_account"
+                android:inputType="textVisiblePassword"
+                android:maxLines="1"
+                android:textColor="@color/black_80"
+                android:textColorHint="@color/gray_20"
+                android:textSize="@dimen/default_medium_text_size"
+                android:layout_marginLeft="@dimen/default_general_margin"
+                android:drawableLeft="@drawable/ic_login_username_default" />
+
+            <ImageButton
+                android:id="@+id/delete_username"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_edittext_clear"
+                android:visibility="gone"
+                android:paddingRight="@dimen/default_general_margin"
+                android:paddingLeft="@dimen/default_grow_margin" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/line_bg" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_default_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/default_general_margin"
+            android:hint="@string/login_hint_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="@color/black_80"
+            android:textColorHint="@color/gray_20"
+            android:textSize="@dimen/default_medium_text_size"
+            android:layout_marginLeft="@dimen/default_small_padding"
+            android:drawableLeft="@drawable/ic_login_password_default" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:layout_marginBottom="@dimen/default_general_margin"
+        android:layout_marginLeft="@dimen/default_general_margin"
+        android:layout_marginRight="@dimen/default_general_margin"
+        android:layout_marginTop="@dimen/default_long_margin"
+        android:gravity="center"
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_medium_text_size" />
+
+
+</LinearLayout>

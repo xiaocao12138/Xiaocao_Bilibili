@@ -1,18 +1,21 @@
 package com.myproject.bilibili.model.Cartoon.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
-import com.myproject.bilibili.view.HotGridView;
+import com.myproject.bilibili.model.Cartoon.adapter.CartoonAdapter;
+import com.myproject.bilibili.model.Cartoon.bean.CartoonBean;
+import com.myproject.bilibili.utils.AppNetConfig;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by chen on 2017/3/21 19:13.
@@ -22,24 +25,8 @@ import butterknife.OnClick;
 public class CartoonFragment extends BaseFragment {
 
 
-    @BindView(R.id.rl_fan_ju)
-    RelativeLayout rlFanJu;
-    @BindView(R.id.rl_guo_man)
-    RelativeLayout rlGuoMan;
-    @BindView(R.id.time)
-    TextView time;
-    @BindView(R.id.suoyin)
-    TextView suoyin;
-    @BindView(R.id.iv_zhui_fan)
-    ImageView ivZhuiFan;
-    @BindView(R.id.iv_head)
-    ImageView ivHead;
-    @BindView(R.id.type_zhan_qu)
-    TextView typeZhanQu;
-    @BindView(R.id.tv_type_more)
-    TextView tvTypeMore;
-    @BindView(R.id.gridView)
-    HotGridView gridView;
+    @BindView(R.id.rececle_view)
+    RecyclerView rececleView;
 
     @Override
     public View initView() {
@@ -52,12 +39,12 @@ public class CartoonFragment extends BaseFragment {
     public void initData() {
         super.initData();
 
-//        getDataFromNet();
+        getDataFromNet();
     }
 
-    /*private void getDataFromNet() {
+    private void getDataFromNet() {
         OkHttpUtils.get()
-                .url()
+                .url(AppNetConfig.CARTOON_MORE)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -67,30 +54,23 @@ public class CartoonFragment extends BaseFragment {
 
                     @Override
                     public void onResponse(String response, int id) {
-
+                        processData(response);
                     }
                 });
-    }*/
-
-
-    @OnClick({R.id.rl_fan_ju, R.id.rl_guo_man, R.id.time, R.id.suoyin, R.id.iv_zhui_fan})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rl_fan_ju:
-                Toast.makeText(mContext, "番剧", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.rl_guo_man:
-                Toast.makeText(mContext, "国漫", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.time:
-                Toast.makeText(mContext, "时间表", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.suoyin:
-                Toast.makeText(mContext, "索引", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.iv_zhui_fan:
-                ivZhuiFan.setVisibility(View.VISIBLE);
-                break;
-        }
     }
+
+    private void processData(String json) {
+
+        CartoonBean cartoonBean = JSON.parseObject(json, CartoonBean.class);
+        CartoonBean.ResultBean result = cartoonBean.getResult();
+        if (result != null) {
+            CartoonAdapter adapter = new CartoonAdapter(mContext, result.getSerializing());
+            rececleView.setAdapter(adapter);
+
+            rececleView.setLayoutManager(new LinearLayoutManager(mContext , LinearLayoutManager.VERTICAL , false));
+        }
+
+
+    }
+
 }

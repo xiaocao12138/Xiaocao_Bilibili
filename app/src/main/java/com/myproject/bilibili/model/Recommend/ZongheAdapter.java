@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.Recommend.bean.RecommendBean;
 
 import java.util.List;
 

@@ -161,4 +161,9 @@
     <string name="about_tag">标签相关</string>
     <string name="tag_edit">编辑</string>
 
+
+    <string name="action_settings">分享</string>
+    <string name="action_web">打开浏览器</string>
+    <string name="action_copy">复制网址</string>
+
 </resources>

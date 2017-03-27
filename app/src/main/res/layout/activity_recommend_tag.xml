@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_recommend_tag"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.myproject.bilibili.model.Recommend.activity.RecommendTagActivity">
+
+    <TextView
+        android:id="@+id/iv_back"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        android:text="选择喜欢的标签"
+        android:drawablePadding="20dp"
+        android:paddingLeft="20dp"
+        android:textSize="25sp"/>
+
+    <android.support.percent.PercentRelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#11000000"
+            android:scrollbars="none"
+            app:layout_widthPercent="22%" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/lv_left"
+            app:layout_widthPercent="78%" />
+
+    </android.support.percent.PercentRelativeLayout>
+
+</LinearLayout>

@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.github.hymanme.tagflowlayout.OnTagClickListener;
@@ -14,8 +16,12 @@ import com.github.hymanme.tagflowlayout.TagFlowLayout;
 import com.github.hymanme.tagflowlayout.tags.ColorfulTagView;
 import com.github.hymanme.tagflowlayout.tags.DefaultTagView;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.activity.BannerInfoActivity;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.found.bean.FoundBean;
+import com.myproject.bilibili.model.found.bean.ShopBean;
 import com.myproject.bilibili.utils.AppNetConfig;
+import com.myproject.bilibili.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -34,7 +40,15 @@ import okhttp3.Call;
 public class FoundFragment extends BaseFragment {
 
     public static final String NAME = "name";
+    public static final String TITLE = "title";
+    public static final String URL = "url";
 
+    @BindView(R.id.edt_search)
+    TextView edtSearch;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
+    @BindView(R.id.tag_flow_layout)
+    TagFlowLayout tagFlowLayout;
     @BindView(R.id.tv_xingqu_quan)
     TextView tvXingquQuan;
     @BindView(R.id.tv_huatizhong_xin)
@@ -47,11 +61,14 @@ public class FoundFragment extends BaseFragment {
     TextView tvQuanQu;
     @BindView(R.id.tv_you_xi)
     TextView tvYouXi;
-    @BindView(R.id.tag_flow_layout)
-    TagFlowLayout tagFlowLayout;
+    @BindView(R.id.tv_shopping)
+    TextView tvShopping;
+
 
     private LayoutInflater mInflater;
     private List<FoundBean.DataBean.ListBean> list;
+    private ShopBean.ResultBean result;
+    private String url;
 
     @Override
     public View initView() {
@@ -64,10 +81,35 @@ public class FoundFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        getDataFromNet();
+
+        getDataFromNet01();
+
+        getDataFromNet02();
     }
 
-    private void getDataFromNet() {
+    private void getDataFromNet02() {
+        OkHttpUtils.get().url(AppNetConfig.DISCOVER_SHOP).build().execute(new StringCallback() {
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+//                Log.i("TAG", "onResponse: "+response);
+                processDataShop(response);
+            }
+        });
+    }
+
+    private void processDataShop(String json) {
+        ShopBean shopBean = JSON.parseObject(json, ShopBean.class);
+        result = shopBean.getResult();
+        url = result.getResourceLink();
+    }
+
+    private void getDataFromNet01() {
         OkHttpUtils.get().url(AppNetConfig.DISCOVER_TAG).build().execute(new StringCallback() {
 
             @Override
@@ -78,12 +120,12 @@ public class FoundFragment extends BaseFragment {
             @Override
             public void onResponse(String response, int id) {
 //                Log.i("TAG", "onResponse: "+response);
-                processData(response);
+                processDataFound(response);
             }
         });
     }
 
-    private void processData(String json) {
+    private void processDataFound(String json) {
 
         FoundBean foundBean = JSON.parseObject(json, FoundBean.class);
 
@@ -93,6 +135,7 @@ public class FoundFragment extends BaseFragment {
 
         MyTagAdapter tagAdapter = new MyTagAdapter();
         tagAdapter.addAllTags(list);
+
         tagFlowLayout.setTagAdapter(tagAdapter);
 
         initListener();
@@ -103,8 +146,8 @@ public class FoundFragment extends BaseFragment {
         tagFlowLayout.setTagListener(new OnTagClickListener() {
             @Override
             public void onClick(TagFlowLayout parent, View view, int position) {
-                Intent intent = new Intent(getActivity() , TabMoreAcivity.class);
-                intent.putExtra(NAME , list.get(position));
+                Intent intent = new Intent(getActivity(), TabMoreAcivity.class);
+                intent.putExtra(NAME, list.get(position).getKeyword());
                 mContext.startActivity(intent);
             }
 
@@ -118,7 +161,7 @@ public class FoundFragment extends BaseFragment {
     private void initColor() {
         tagFlowLayout.setTitle("大家都不想搜");
         tagFlowLayout.setTitleTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                tagFlowLayout.setTitleTextSize(12);
+        tagFlowLayout.setTitleTextSize(12);
         //最小显示高度(单位dp)
         tagFlowLayout.setMinVisibleHeight(100);
         //最大显示高度(单位dp)
@@ -139,30 +182,16 @@ public class FoundFragment extends BaseFragment {
         }
     }
 
-    /*LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) svView.getLayoutParams();
-    if (!isOpen) {
-        layoutParams.height = DensityUtil.dip2px(getActivity(), 300);
-        svView.setLayoutParams(layoutParams);
-        tvLoadMore.setText("收起");
-        Drawable img = getResources().getDrawable(R.drawable.ic_arrow_up);
-        // 调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
-        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
-        tvLoadMore.setCompoundDrawables(img, null, null, null); //设置左图标
-        isOpen = true;
-    } else {
-        layoutParams.height = DensityUtil.dip2px(getActivity(), 180);
-        svView.setLayoutParams(layoutParams);
-        tvLoadMore.setText("查看更多");
-        Drawable img = getResources().getDrawable(R.drawable.ic_arrow_down);
-        // 调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
-        img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
-        tvLoadMore.setCompoundDrawables(img, null, null, null); //设置左图标
-        isOpen = false;
-    }*/
-
-    @OnClick({R.id.tv_xingqu_quan, R.id.tv_huatizhong_xin, R.id.tv_huodong_zhong_xin, R.id.tv_yuan_chuang, R.id.tv_quan_qu, R.id.tv_you_xi})
+    @OnClick({R.id.edt_search , R.id.iv_scan ,R.id.tv_xingqu_quan, R.id.tv_huatizhong_xin, R.id.tv_huodong_zhong_xin,
+            R.id.tv_yuan_chuang, R.id.tv_quan_qu, R.id.tv_you_xi, R.id.tv_shopping})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.edt_search:
+
+                break;
+            case R.id.iv_scan:
+
+                break;
             case R.id.tv_xingqu_quan:
                 mContext.startActivity(new Intent(getActivity(), XingquActivity.class));
                 break;
@@ -179,6 +208,13 @@ public class FoundFragment extends BaseFragment {
                 mContext.startActivity(new Intent(getActivity(), OriginalActivity.class));
                 break;
             case R.id.tv_you_xi:
+                Toast.makeText(mContext, "游戏", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_shopping:
+                Intent intent = new Intent(getActivity(), BannerInfoActivity.class);
+                intent.putExtra(Constants.URL, "http://bmall.bilibili.com/");
+                intent.putExtra(Constants.TITLE, "Bilibili- 周边商城");
+                mContext.startActivity(intent);
                 break;
         }
     }

@@ -1,6 +1,5 @@
 package com.myproject.bilibili.model.Partition;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,8 +31,8 @@ public class PartitionFragment extends BaseFragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    private List<PartitionBean.DataBean> data;
+    private List<PartitionMoreBean.DataBean> moreData;
 
     @Override
     public View initView() {
@@ -45,11 +44,40 @@ public class PartitionFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        getDataFromNet();
+        getDataFromNet01();
 
     }
 
-    private void getDataFromNet() {
+
+    private void getDataFromNet02() {
+        OkHttpUtils
+                .get()
+                .url(AppNetConfig.PARTITION_MORE)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("TAG", "联网失败===" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+//                        Log.e("TAG", "联网成功===" + response);
+                        processDataMore(response);
+                    }
+
+                });
+    }
+
+    private void processDataMore(String json) {
+        PartitionMoreBean partitionMoreBean = JSON.parseObject(json, PartitionMoreBean.class);
+        moreData = partitionMoreBean.getData();
+
+        setAdapter();
+
+    }
+
+    private void getDataFromNet01() {
         OkHttpUtils
                 .get()
                 .url(AppNetConfig.PARTITION_TAG)
@@ -68,54 +96,41 @@ public class PartitionFragment extends BaseFragment {
 
                 });
 
-        OkHttpUtils
-                .get()
-                .url(AppNetConfig.PARTITION_TAG)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Log.e("TAG", "联网失败===" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-//                        Log.e("TAG", "联网成功===" + response);
-                        processData(response);
-                    }
-
-                });
     }
 
-    /*private void processDataMore(String response) {
-        PartitionMoreBean partitionMoreBean = JSON.parseObject(response, PartitionMoreBean.class);
-        List<PartitionMoreBean.DataBean> data = partitionMoreBean.getData();
-        if (data != null){
-            PartitionTagAdapter adapter = new PartitionTagAdapter(mContext , data);
-            recyclerView.setAdapter(adapter);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext , LinearLayoutManager.VERTICAL , false));
-
-        }else {
-            Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
-        }
-    }*/
 
     private void processData(String json) {
         PartitionBean partitionBean = JSON.parseObject(json, PartitionBean.class);
-        List<PartitionBean.DataBean> data = partitionBean.getData();
-/*
-        PartitionBean partitionBean = JSON.parseObject(json, PartitionBean.class);
-        List<PartitionBean.DataBean> data = partitionBean.getData();*/
-        if (data != null){
-            PartitionTagAdapter adapter = new PartitionTagAdapter(mContext , data);
-            recyclerView.setAdapter(adapter);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext , LinearLayoutManager.VERTICAL , false));
-
-        }else {
-            Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
-        }
+        data = partitionBean.getData();
+        getDataFromNet02();
 
     }
+
+    private void setAdapter() {
+        if (data != null && data.size() > 0 && moreData != null && moreData.size() >0) {
+
+            PartitionTagAdapter adapter = new PartitionTagAdapter(mContext, moreData, data);
+            recyclerView.setAdapter(adapter);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+
+        } else {
+            Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
+//
+//            getDataFromNet01();
+//
+//            getDataFromNet02();
+        }
+
+        /*if (data != null) {
+            PartitionMoreTagAdapter adapter = new PartitionMoreTagAdapter(mContext, data);
+            recyclerView.setAdapter(adapter);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+
+        } else {
+            Toast.makeText(mContext, "网络请求失败", Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
 }

@@ -40,7 +40,7 @@
 
 
         <item
-            android:id="@+id/item_group"
+            android:id="@+id/item_guanzhu"
             android:icon="@drawable/ic_people_black_24dp"
             android:title="关注的人" />
         <item
@@ -61,7 +61,7 @@
             android:title="主题选择" />
 
         <item
-            android:id="@+id/item_app"
+            android:id="@+id/item_app_recommend"
             android:checkable="false"
             android:icon="@drawable/ic_shop_black_24dp"
             android:title="应用推荐" />

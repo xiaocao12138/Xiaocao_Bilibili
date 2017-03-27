@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.myproject.bilibili.R;
@@ -22,6 +25,8 @@ import com.myproject.bilibili.model.Partition.PartitionFragment;
 import com.myproject.bilibili.model.Recommend.RecommendFragment;
 import com.myproject.bilibili.model.found.FoundFragment;
 import com.myproject.bilibili.model.live.LiveFragment;
+import com.myproject.bilibili.search.SearchFragment;
+import com.myproject.bilibili.search.custom.IOnSearchClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +49,12 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
+    @BindView(R.id.navigation_layout)
+    LinearLayout navigationLayout;
 
     private List<BaseFragment> baseFragments;
+    private SearchFragment searchFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,29 +62,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        searchFragment = SearchFragment.newInstance();
+        toolbar.inflateMenu(R.menu.menu_main);
         initFramgent();
         initListener();
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
     }
 
     private void initListener() {
@@ -84,7 +75,54 @@ public class MainActivity extends AppCompatActivity
 
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+
+
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuItemId = item.getItemId();
+
+                if (menuItemId == R.id.id_action_download) {
+                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", ""));
+
+                } else if (menuItemId == R.id.id_action_search) {
+//                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(MainActivity.this, TabMoreAcivity.class));
+                    searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
+                }
+                return true;
+            }
+        });
+
+        navigationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                Toast.makeText(MainActivity.this, keyword, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+
 
     private void initFramgent() {
         baseFragments = new ArrayList<>();
@@ -97,7 +135,32 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        switch (item.getItemId()){
+            case R.id.item_home:
+
+                drawerLayout.closeDrawers();
+                break;
+            case R.id.item_vip:
+                break;
+            case R.id.item_download:
+                break;
+            case R.id.item_favourite:
+                break;
+            case R.id.item_history:
+                break;
+            case R.id.item_guanzhu:
+                break;
+            case R.id.item_tracker:
+                break;
+            case R.id.item_theme:
+                break;
+            case R.id.item_app_recommend:
+                break;
+            case R.id.item_settings:
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private int startY;
@@ -165,6 +228,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 双击退出
+     *
      * @param keyCode
      * @param event
      * @return
@@ -175,11 +239,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            if (System.currentTimeMillis() - currentTime > 2000){
-                Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - currentTime > 2000) {
+                Toast.makeText(MainActivity.this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
                 currentTime = System.currentTimeMillis();
-            }else {
+            } else {
                 finish();
                 System.exit(0);
             }
@@ -187,6 +251,5 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onKeyUp(keyCode, event);
     }
-
 
 }

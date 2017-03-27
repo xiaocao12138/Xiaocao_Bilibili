@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/tv_shu"
+        android:layout_width="60dp"
+        android:layout_height="110dp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#fb7299"
+        android:textSize="30dp" />
+
+    <com.myproject.bilibili.view.CircleImageView
+        android:id="@+id/imageview"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/ic_33" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_zhuti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="【敖厂长】荒岛求生"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:lines="2"/>
+
+        <TextView
+            android:id="@+id/up_zhu"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:drawableLeft="@drawable/ic_category_up"
+            android:text="敖厂长" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="综合评分 : "/>
+
+            <TextView
+                android:id="@+id/tv_pingfen"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="666888"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

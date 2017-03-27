@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.myproject.beijingnews.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bottom_tab_bg">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="主页"
+            android:textColor="@drawable/rb_textcolor_selector"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/rb_home_selector"/>
+
+        <RadioButton
+            android:id="@+id/rb_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="新闻"
+            android:textColor="@drawable/rb_textcolor_selector"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/rb_news_selector"/>
+
+        <RadioButton
+            android:id="@+id/rb_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="设置"
+            android:textColor="@drawable/rb_textcolor_selector"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/rb_setting_selector"/>
+    </RadioGroup>
+</LinearLayout>

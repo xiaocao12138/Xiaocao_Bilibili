@@ -19,8 +19,18 @@ public class AppNetConfig {
     //原创排行榜----原创
     public static final String DISCOVER_ORIGINAL="http://app.bilibili.com/x/v2/rank?appkey=1d8b6e7d45233436&build=501000&mobi_app=android&order=origin&platform=android&pn=1&ps=20&ts=1490015891000&sign=1a5a1c73e3b23be37fb13ee0178ceef0";
 
+
+    public static final String DISCOVER_SHOP="http://bmall.bilibili.com/apiSecond/public/getModelData.do?mark_code=7f7d1ac0796211e6ab5352223301d29a";
+
     //直播
-    public static final String LIVE_TAG="http://live.bilibili.com/AppNewIndex/common?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&scale=xxhdpi&ts=1490021691000&sign=f283ef788f4b302d0d1783e3f3e98aa4";
+//    public static final String LIVE_TAG="http://live.bilibili.com/AppNewIndex/common?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&scale=xxhdpi&ts=1490021691000&sign=f283ef788f4b302d0d1783e3f3e98aa4";
+
+    //直播
+    public static final String LIVE_INFO="http://live.bilibili.com/AppRoom/index?_device=android&access_key=1547633a6933e50e4983a2b8f4df76a0&appkey=1d8b6e7d45233436&build=501000&buld=501000&jumpFrom=24000&mobi_app=android&platform=android&room_id=3887630&scale=xhdpi&sign=efb09865722653f3859aa1621827c383";
+
+    public static final String LIVE_TAG="http://live.bilibili.com/AppNewIndex/common?_device=android&appkey=1d8b6e7d45233436&build=501020&mobi_app=android&platform=android&scale=xxhdpi&ts=1490533283000&sign=1129af7b4455d3ce768ab527ab2eac95";
+
+    public static final String LIVE_RECCOMEND="http://live.bilibili.com/AppNewIndex/recommend?_device=android&appkey=1d8b6e7d45233436&build=501020&mobi_app=android&platform=android&scale=xxhdpi&ts=1490534194000&sign=4af599b58788175fbd691570330581d8";
 
     public static final String BANNER_TAG="http://live.bilibili.com/AppNewIndex/common?_device=android&appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&scale=xhdpi&ts=1490007446000&sign=18ff47e60a7263218a9befe86c7cc282";
 
@@ -33,6 +43,18 @@ public class AppNetConfig {
 
     //分区首页的直播
     public static final String PARTITION_MORE="http://app.bilibili.com/x/v2/show/region?appkey=1d8b6e7d45233436&build=501000&mobi_app=android&platform=android&ts=1490237034000&sign=88d791158ed34cc95694741d6b02f9de";
+
+    //追番数据
+    public static final String CARTOON_MORE="http://bangumi.bilibili.com/api/app_index_page_v4?build=3940&device=phone&mobi_app=iphone&platform=ios";
+
+
+    //排行榜
+    public static final String YUANCHUANG ="http://app.bilibili.com/x/v2/rank?appkey=1d8b6e7d45233436&build=501000&mobi_app=android&order=origin&platform=android&pn=1&ps=20&ts=1490015891000&sign=1a5a1c73e3b23be37fb13ee0178ceef0";
+
+    //商城
+    public static final String SHOPPING ="http://bmall.bilibili.com/apiSecond/public/getModelData.do?mark_code=7f7d1ac0796211e6ab5352223301d29a";
+
+    public static final String SHOPPING_ALL ="http://bmall.bilibili.com/api/product/list.do?pn=1&ps=6";
 
 
 }

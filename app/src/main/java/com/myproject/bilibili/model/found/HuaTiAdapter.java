@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.found.bean.HuaTiBean;
 
 import java.util.List;
 

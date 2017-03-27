@@ -53,11 +53,14 @@ public class OriginalActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
         OriginalPagerAdapter adapter = new OriginalPagerAdapter(getSupportFragmentManager(), list);
         viewPager.setAdapter(adapter);
+
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
+
 
 
     private int startY;

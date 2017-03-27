@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.utils.ConstantUtil;
+import com.myproject.bilibili.utils.PreferenceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +33,6 @@ public class WelcomeActivity extends AppCompatActivity {
         animation.setDuration(3000);
         animation.setFillAfter(true);
         animation.setAnimationListener(new Animation.AnimationListener() {
-
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -39,12 +40,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                boolean isLogin = PreferenceUtil.getBoolean(ConstantUtil.KEY, false);
-//                if (isLogin) {
-                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-//                } else {
-//                    intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-//                }
+                Intent intent ;
+                boolean isLogin = PreferenceUtil.getBoolean(ConstantUtil.KEY, false);
+                if (isLogin) {
+                     intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                } else {
+                    intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                }
                 startActivity(intent);
                 finish();
             }

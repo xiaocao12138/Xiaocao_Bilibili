@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.found.bean.HuaTiBean;
 import com.myproject.bilibili.utils.AppNetConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
