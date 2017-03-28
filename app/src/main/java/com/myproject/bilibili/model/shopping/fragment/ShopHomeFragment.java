@@ -1,13 +1,26 @@
 package com.myproject.bilibili.model.shopping.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.shopping.adapter.ShopHomeAdapter;
+import com.myproject.bilibili.model.shopping.bean.ShopAllBean;
+import com.myproject.bilibili.model.shopping.bean.ShopBannerBean;
+import com.myproject.bilibili.utils.AppNetConfig;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
 
 /**
  * Created by chen on 2017/3/27 16:14.
@@ -16,13 +29,12 @@ import butterknife.ButterKnife;
 
 public class ShopHomeFragment extends BaseFragment {
 
-    @BindView(R.id.webview)
-    WebView webview;
 
-//    @BindView(R.id.rececleview)
-//    RecyclerView rececleview;
-//    private List<ShopBannerBean.ResultBean.ModelDetailsBean> modelDetails;
-//    private List<ShopAllBean.ResultBean.RecordsBean> records;
+    @BindView(R.id.rececleview)
+    RecyclerView rececleview;
+    private List<ShopBannerBean.ResultBean.ModelDetailsBean> modelDetails;
+    private List<ShopAllBean.ResultBean.RecordsBean> records;
+    private ShopHomeAdapter adapter;
 
     @Override
     public View initView() {
@@ -35,7 +47,7 @@ public class ShopHomeFragment extends BaseFragment {
     public void initData() {
         super.initData();
 
-//        getDataFromNet01();
+        getDataFromNet01();
     }
 
     /*private void setWebViewData(String url) {
@@ -73,63 +85,65 @@ public class ShopHomeFragment extends BaseFragment {
         webview.loadUrl(url);
     }*/
 
-//    private void getDataFromNet01() {
-//        OkHttpUtils.get()
-//                .url(AppNetConfig.SHOPPING)
-//                .build()
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int id) {
-//                        Log.e("TAG" , "onError" + e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String response, int id) {
-//                        Log.e("TAG" , "onResponse" + response);
-//                        processData(response);
-//                    }
-//                });
-//    }
-//
-//    private void processData(String json) {
-//        ShopBannerBean shopBannerBean = JSON.parseObject(json, ShopBannerBean.class);
-//        modelDetails = shopBannerBean.getResult().getModelDetails();
-//        getDataFromNet02();
-//    }
-//
-//    private void getDataFromNet02() {
-//        OkHttpUtils.get()
-//                .url(AppNetConfig.SHOPPING_ALL)
-//                .build()
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int id) {
-//                        Log.e("TAG" , "onError" + e.getMessage());
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String response, int id) {
-//                        Log.e("TAG" , "onResponse" + response);
-//                        processData02(response);
-//                    }
-//                });
-//    }
-//
-//    private void processData02(String json) {
-//        ShopAllBean shopAllBean = JSON.parseObject(json, ShopAllBean.class);
-//        records = shopAllBean.getResult().getRecords();
-//        setAdapter();
-//    }
-//
-//    private void setAdapter() {
-//        if (modelDetails.size() > 0 && modelDetails != null && records.size() > 0 && records != null){
-//
-//            ShopHomeAdapter adapter = new ShopHomeAdapter(mContext , records, modelDetails);
-//            rececleview.setAdapter(adapter);
-//
-//            rececleview.setLayoutManager(new LinearLayoutManager(mContext , LinearLayoutManager.VERTICAL , false));
-//        }else {
-//            Toast.makeText(mContext, "联网失败", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    private void getDataFromNet01() {
+        OkHttpUtils.get()
+                .url(AppNetConfig.SHOPPING)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("TAG" , "onError" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("TAG" , "onResponse" + response);
+                        processData(response);
+                    }
+                });
+    }
+
+    private void processData(String json) {
+        ShopBannerBean shopBannerBean = JSON.parseObject(json, ShopBannerBean.class);
+        modelDetails = shopBannerBean.getResult().getModelDetails();
+        getDataFromNet02();
+    }
+
+    private void getDataFromNet02() {
+        OkHttpUtils.get()
+                .url(AppNetConfig.SHOPPING_ALL)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e("TAG" , "onError" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.e("TAG" , "onResponse" + response);
+                        processData02(response);
+                    }
+                });
+    }
+
+    private void processData02(String json) {
+        ShopAllBean shopAllBean = JSON.parseObject(json, ShopAllBean.class);
+        records = shopAllBean.getResult().getRecords();
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        if (modelDetails.size() > 0 && modelDetails != null && records.size() > 0 && records != null){
+
+            adapter = new ShopHomeAdapter(mContext , records, modelDetails);
+            rececleview.setAdapter(adapter);
+
+            rececleview.setLayoutManager(new LinearLayoutManager(mContext , LinearLayoutManager.VERTICAL , false));
+        }else {
+            Toast.makeText(mContext, "联网失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 }

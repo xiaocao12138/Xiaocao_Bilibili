@@ -1,5 +1,6 @@
 package com.myproject.bilibili.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -24,6 +25,7 @@ import com.myproject.bilibili.model.Cartoon.fragment.CartoonFragment;
 import com.myproject.bilibili.model.Partition.PartitionFragment;
 import com.myproject.bilibili.model.Recommend.RecommendFragment;
 import com.myproject.bilibili.model.found.FoundFragment;
+import com.myproject.bilibili.model.found.TabMoreAcivity;
 import com.myproject.bilibili.model.live.LiveFragment;
 import com.myproject.bilibili.search.SearchFragment;
 import com.myproject.bilibili.search.custom.IOnSearchClickListener;
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
             @Override
             public void OnSearchClick(String keyword) {
-                Toast.makeText(MainActivity.this, keyword, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, TabMoreAcivity.class));
             }
         });
 

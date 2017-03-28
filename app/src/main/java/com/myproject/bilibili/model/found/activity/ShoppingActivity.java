@@ -22,6 +22,7 @@ import com.myproject.bilibili.model.shopping.fragment.DingDanFragment;
 import com.myproject.bilibili.model.shopping.fragment.ShopCartFragment;
 import com.myproject.bilibili.model.shopping.fragment.ShopHomeFragment;
 import com.myproject.bilibili.utils.ClipboardUtil;
+import com.myproject.bilibili.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class ShoppingActivity extends AppCompatActivity {
         initFragment();
         initListener();
     }
+
 
     private void initListener() {
 
@@ -141,6 +143,13 @@ public class ShoppingActivity extends AppCompatActivity {
         fragments.add(new ShopHomeFragment());//商品首页-0，
         fragments.add(new ShopCartFragment());//添加分类Fragment--1
         fragments.add(new DingDanFragment());//添加发现Fragment--2
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int checkedid = intent.getIntExtra(Constants.CHECKEDID , R.id.rb_home);
+        rgShop.check(checkedid);
     }
 
 

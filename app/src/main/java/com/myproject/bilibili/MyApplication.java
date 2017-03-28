@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.ColorRes;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
 import cn.sharesdk.framework.ShareSDK;
 
 /**
@@ -20,6 +22,8 @@ public class MyApplication extends Application {
         super.onCreate();
         mInstance = this;
         ShareSDK.initSDK(this);
+
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
 

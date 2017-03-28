@@ -1,6 +1,9 @@
 package com.myproject.bilibili.model.found;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +19,16 @@ import com.github.hymanme.tagflowlayout.TagFlowLayout;
 import com.github.hymanme.tagflowlayout.tags.ColorfulTagView;
 import com.github.hymanme.tagflowlayout.tags.DefaultTagView;
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.activity.BannerInfoActivity;
 import com.myproject.bilibili.base.BaseFragment;
+import com.myproject.bilibili.model.cemare.ImageUtil;
+import com.myproject.bilibili.model.found.activity.ShoppingActivity;
 import com.myproject.bilibili.model.found.bean.FoundBean;
 import com.myproject.bilibili.model.found.bean.ShopBean;
+import com.myproject.bilibili.search.SearchFragment;
+import com.myproject.bilibili.search.custom.IOnSearchClickListener;
 import com.myproject.bilibili.utils.AppNetConfig;
-import com.myproject.bilibili.utils.Constants;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -69,6 +76,7 @@ public class FoundFragment extends BaseFragment {
     private List<FoundBean.DataBean.ListBean> list;
     private ShopBean.ResultBean result;
     private String url;
+    private SearchFragment searchFragment;
 
     @Override
     public View initView() {
@@ -81,6 +89,7 @@ public class FoundFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+        searchFragment = SearchFragment.newInstance();
 
         getDataFromNet01();
 
@@ -156,6 +165,13 @@ public class FoundFragment extends BaseFragment {
 
             }
         });
+
+        searchFragment.setOnSearchClickListener(new IOnSearchClickListener() {
+            @Override
+            public void OnSearchClick(String keyword) {
+                startActivity(new Intent(getActivity() , TabMoreAcivity.class));
+            }
+        });
     }
 
     private void initColor() {
@@ -187,10 +203,12 @@ public class FoundFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.edt_search:
-
+                searchFragment.show(getActivity().getSupportFragmentManager(),SearchFragment.TAG);
                 break;
             case R.id.iv_scan:
-
+//                Toast.makeText(mContext, "111111 11111111", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity() , CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.tv_xingqu_quan:
                 mContext.startActivity(new Intent(getActivity(), XingquActivity.class));
@@ -211,11 +229,97 @@ public class FoundFragment extends BaseFragment {
                 Toast.makeText(mContext, "游戏", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_shopping:
-                Intent intent = new Intent(getActivity(), BannerInfoActivity.class);
+                mContext.startActivity(new Intent(getActivity() , ShoppingActivity.class));
+                /*intent = new Intent(getActivity(), BannerInfoActivity.class);
                 intent.putExtra(Constants.URL, "http://bmall.bilibili.com/");
                 intent.putExtra(Constants.TITLE, "Bilibili- 周边商城");
-                mContext.startActivity(intent);
+                mContext.startActivity(intent);*/
                 break;
+        }
+    }
+
+    /**
+     * 扫描跳转Activity RequestCode
+     */
+    public static final int REQUEST_CODE = 111;
+    /**
+     * 选择系统图片Request Code
+     */
+    public static final int REQUEST_IMAGE = 112;
+
+    /**
+     * 请求CAMERA权限码
+     */
+    public static final int REQUEST_CAMERA_PERM = 101;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+
+                    /*String[] d = result.split(",");
+                    GoodsBean goodsBean = new GoodsBean();
+                    goodsBean.setProduct_id(null);
+                    goodsBean.setName(d[1]);
+                    goodsBean.setCover_price(d[2]);
+                    goodsBean.setFigure(d[0]);*/
+
+                    /*Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                    intent.putExtra(HomeAdapter.GOODS_BEAN, goodsBean);
+                    startActivity(intent);*/
+                    Toast.makeText(mContext, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(mContext, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        /**
+         * 选择系统图片并解析
+         */
+        else if (requestCode == REQUEST_IMAGE) {
+            if (data != null) {
+                Uri uri = data.getData();
+                try {
+                    CodeUtils.analyzeBitmap(ImageUtil.getImageAbsolutePath(mContext, uri), new CodeUtils.AnalyzeCallback() {
+                        @Override
+                        public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
+                            Toast.makeText(mContext, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                           /* String[] d = result.split(",");
+                            GoodsBean goodsBean = new GoodsBean();
+                            goodsBean.setProduct_id(null);
+                            goodsBean.setName(d[1]);
+                            goodsBean.setCover_price(d[2]);
+                            goodsBean.setFigure(d[0]);
+
+                            Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                            intent.putExtra(HomeAdapter.GOODS_BEAN, goodsBean);
+                            startActivity(intent);*/
+                        }
+
+                        @Override
+                        public void onAnalyzeFailed() {
+                            Toast.makeText(mContext, "解析二维码失败", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        else if (requestCode == REQUEST_CAMERA_PERM) {
+            Toast.makeText(mContext, "从设置页面返回...", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 

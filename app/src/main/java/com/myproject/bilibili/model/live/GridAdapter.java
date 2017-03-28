@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.live.activity.LiveInfoAcivity;
 import com.myproject.bilibili.model.live.bean.LiveBean;
-import com.myproject.bilibili.video.DanmkuVideoActivity;
+import com.myproject.bilibili.utils.Constants;
 import com.myproject.bilibili.view.CircleImageView;
 
 import java.util.List;
@@ -28,11 +29,6 @@ import butterknife.ButterKnife;
 
 public class GridAdapter extends BaseAdapter {
 
-    public static final String TITLE = "title";
-    public static final String URL = "url";
-    public static final String ONLINE = "online";
-    public static final String IMAGE_URL = "imageUrl";
-    public static final String USERNAME = "username";
 
     private final Context mContect;
     private final List<LiveBean.DataBean.PartitionsBean.LivesBean> partitions;
@@ -67,7 +63,7 @@ public class GridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-//        List<LiveBean.DataBean.PartitionsBean.LivesBean> lives = partitions.get(position).getLives();
+
         final LiveBean.DataBean.PartitionsBean.LivesBean livesBean = partitions.get(position);
 
         Glide.with(mContect)
@@ -89,15 +85,12 @@ public class GridAdapter extends BaseAdapter {
         holder.itemCartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (listener != null){
-                        listener.OnClick(v , position);
-                    }*/
-                Intent intent = new Intent(mContect, DanmkuVideoActivity.class);
-                intent.putExtra(URL,livesBean.getPlayurl());
-                intent.putExtra(TITLE, livesBean.getTitle());
-                intent.putExtra(ONLINE, livesBean.getOnline());
-                intent.putExtra(USERNAME, livesBean.getOwner().getName());
-                intent.putExtra(IMAGE_URL, livesBean.getOwner().getFace());
+                Intent intent = new Intent(mContect, LiveInfoAcivity.class);
+                intent.putExtra(Constants.URL,livesBean.getPlayurl());
+                intent.putExtra(Constants.TITLE, livesBean.getTitle());
+                intent.putExtra(Constants.ONLINE, livesBean.getOnline());
+                intent.putExtra(Constants.USERNAME, livesBean.getOwner().getName());
+                intent.putExtra(Constants.IMAGE_URL, livesBean.getOwner().getFace());
                 mContect.startActivity(intent);
             }
         });
@@ -123,25 +116,6 @@ public class GridAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
-           /* view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null){
-                        listener.OnClick(v , );
-                    }
-                }
-            });*/
         }
     }
-
-    public interface OnItemClickListener{
-        void OnClick(View view , int position);
-    }
-
-    private OnItemClickListener listener;
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
-    }
-
 }

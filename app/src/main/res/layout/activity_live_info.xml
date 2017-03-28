@@ -1,105 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.myproject.bilibili.video.DanmakuVideoPlayer
-        android:id="@+id/danmaku_player"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@android:color/white">
-
-        <com.myproject.bilibili.view.CircleImageView
-            android:id="@+id/iv_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_22"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@id/iv_head"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_home_name"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="宫本武藏"
-                android:textSize="16sp"/>
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="宫本武藏"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:id="@+id/tv_shou_yi"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/ic_watching"
-                android:drawablePadding="10dp"
-                android:text="宫本武藏"
-                android:textSize="16sp"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_guan_zhu"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_centerVertical="true"
-            android:background="@color/colorPrimary"
-            android:drawableLeft="@drawable/ic_pus_primary"
-            android:text="关注"
-            android:paddingLeft="10dp"
-            android:textSize="25sp"
-            android:textColor="@android:color/white"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+
+            <com.myproject.bilibili.widget.media.IjkVideoView
+                android:id="@+id/ijk_player"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:visibility="visible"/>
+
+            <TableLayout
+                android:id="@+id/hud_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="#77000000"
+                android:padding="8dp"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:background="@drawable/ic_watermark_live_large"/>
+
+            <ImageButton
+                android:id="@+id/ib_start"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_player_play_selected"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:color/white">
+
+            <com.myproject.bilibili.view.CircleImageView
+                android:id="@+id/iv_head"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_22"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/iv_head"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_home_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/black"
+                    android:text="宫本武藏"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="宫本武藏"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_watching"
+                    android:drawablePadding="10dp"
+                    android:textColor="@android:color/black"
+                    android:text="1111111111111"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_guan_zhu"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_margin="15dp"
+                android:layout_centerVertical="true"
+                android:background="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_pus_primary"
+                android:text="关注"
+                android:paddingLeft="10dp"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabTextColor="@android:color/white"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/iv_send_liwu"
@@ -108,11 +148,13 @@
             android:background="@color/colorPrimary"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_borad_prop"/>
+
         <EditText
             android:id="@+id/edt_input_dm"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="输入想发送的弹幕"
+            android:layout_weight="1"
+            android:hint="输入想发送的弹幕"
             android:textSize="16sp"/>
 
         <ImageView
@@ -120,8 +162,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_send_grey"/>
-
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

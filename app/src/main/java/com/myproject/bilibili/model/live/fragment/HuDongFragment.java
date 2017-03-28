@@ -36,6 +36,7 @@ public class HuDongFragment extends BaseFragment {
     @BindView(R.id.refresh)
     MaterialRefreshLayout refresh;
     private List<LiveInfoBean.DataBean.HotWordBean> hotWord;
+    private HuDongAdapter adapter;
 
     @Override
     public View initView() {
@@ -106,6 +107,7 @@ public class HuDongFragment extends BaseFragment {
                         if(!isLoadMore){
                             //完成刷新
                             refresh.finishRefresh();
+                            adapter.notifyDataSetChanged();
                         }else{
                             //把上拉的隐藏
                             refresh.finishRefreshLoadMore();
@@ -149,7 +151,7 @@ public class HuDongFragment extends BaseFragment {
 
         hotWord = liveInfoBean.getData().getHot_word();
 
-        HuDongAdapter adapter = new HuDongAdapter(mContext, hotWord);
+        adapter = new HuDongAdapter(mContext, hotWord);
         listView.setAdapter(adapter);
     }
 
@@ -190,6 +192,7 @@ public class HuDongFragment extends BaseFragment {
             }
 
             LiveInfoBean.DataBean.HotWordBean hotWordBean = list.get(position);
+
             holder.textView.setText(hotWordBean.getWords());
 
             return convertView;

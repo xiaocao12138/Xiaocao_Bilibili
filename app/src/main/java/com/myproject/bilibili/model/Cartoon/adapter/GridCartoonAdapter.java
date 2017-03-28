@@ -1,6 +1,7 @@
 package com.myproject.bilibili.model.Cartoon.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -65,20 +66,26 @@ public class GridCartoonAdapter extends BaseAdapter {
         }
 
         CartoonBean.ResultBean.SerializingBean serializingBean = list.get(position);
-        holder.tvTypeName.setText(serializingBean.getTitle());
+        holder.tvVedioName.setText(serializingBean.getTitle());
+        holder.tvPlayNumber.setText(String.valueOf(serializingBean.getFavourites()));
+        holder.tvNumber.setText(serializingBean.getNewest_ep_index() + "话");
 //        holder.tvPrice.setText(recommendInfoBean.getCover_price());
         Glide.with(mContext).load(serializingBean.getCover()).into(holder.ivRecommend);
+
         return convertView;
     }
 
-    static class ViewHolder {
-
+    class ViewHolder {
         @BindView(R.id.iv_recommend)
         ImageView ivRecommend;
-        @BindView(R.id.tv_type_name)
-        TextView tvTypeName;
-        @BindView(R.id.tv_recom_name)
-        TextView tvRecomName;
+        @BindView(R.id.tv_play_number)
+        TextView tvPlayNumber;
+        @BindView(R.id.tv_vedio_name)
+        TextView tvVedioName;
+        @BindView(R.id.tv_number)
+        TextView tvNumber;
+        @BindView(R.id.item_live_layout)
+        CardView itemLiveLayout;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

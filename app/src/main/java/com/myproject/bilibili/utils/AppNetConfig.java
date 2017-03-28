@@ -56,5 +56,6 @@ public class AppNetConfig {
 
     public static final String SHOPPING_ALL ="http://bmall.bilibili.com/api/product/list.do?pn=1&ps=6";
 
+    public static final String SHOPPING_INFO ="http://bmall.bilibili.com/api/product/detail.do?skuId=";
 
 }

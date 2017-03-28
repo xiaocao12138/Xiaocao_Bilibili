@@ -60,9 +60,7 @@ public class CartoonAdapter extends RecyclerView.Adapter {
             currentType = LIST;
         } else if (position == GRID) {
             currentType = GRID;
-        } /*else if (position == BANNER) {
-            currentType = BANNER;
-        }*/
+        }
         return currentType;
     }
 
@@ -123,7 +121,9 @@ public class CartoonAdapter extends RecyclerView.Adapter {
     }
 
     static class TagViewHolder extends RecyclerView.ViewHolder {
+
         private final Context mContext;
+
         @BindView(R.id.rl_fan_ju)
         RelativeLayout rlFanJu;
         @BindView(R.id.rl_guo_man)
@@ -140,5 +140,7 @@ public class CartoonAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
             this.mContext = mContext;
         }
+
+
     }
 }

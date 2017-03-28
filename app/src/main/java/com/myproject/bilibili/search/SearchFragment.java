@@ -58,6 +58,7 @@ public class SearchFragment extends DialogFragment implements DialogInterface.On
     private SearchHistoryAdapter searchHistoryAdapter;
     //数据库
     private SearchHistoryDB searchHistoryDB;
+    private ImageView ivScanZx;
 
     public static SearchFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -95,6 +96,7 @@ public class SearchFragment extends DialogFragment implements DialogInterface.On
         searchUnderline = (View) view.findViewById(R.id.search_underline);
         tvSearchClean = (TextView) view.findViewById(R.id.tv_search_clean);
         viewSearchOutside = (View) view.findViewById(R.id.view_search_outside);
+        ivScanZx = (ImageView) view.findViewById(R.id.iv_scan_zx);
 
         //实例化动画效果
         mCircularRevealAnim = new CircularRevealAnim();
@@ -123,6 +125,7 @@ public class SearchFragment extends DialogFragment implements DialogInterface.On
         viewSearchOutside.setOnClickListener(this);
         ivSearchSearch.setOnClickListener(this);
         tvSearchClean.setOnClickListener(this);
+        ivScanZx.setOnClickListener(this);
 
     }
 
@@ -137,6 +140,8 @@ public class SearchFragment extends DialogFragment implements DialogInterface.On
             historys.clear();
             searchUnderline.setVisibility(View.GONE);
             searchHistoryAdapter.notifyDataSetChanged();
+        }else if (view.getId() == R.id.iv_scan_zx ){
+
         }
     }
 
@@ -254,6 +259,7 @@ public class SearchFragment extends DialogFragment implements DialogInterface.On
             iOnSearchClickListener.OnSearchClick(searchKey);//接口回调
             searchHistoryDB.insertHistory(searchKey);//插入到数据库
             hideAnim();
+
         }
     }
 

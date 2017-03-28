@@ -250,16 +250,6 @@ public class LiveAdapter extends RecyclerView.Adapter {
             adapter = new GridAdapter(mContect, partitionsBean);
             gvLive.setAdapter(adapter);
 
-            /*adapter.setOnItemClickListener(new GridAdapter.OnItemClickListener() {
-                @Override
-                public void OnClick(View view, int position) {
-                    Intent intent = new Intent(mContect, DanmkuVideoActivity.class);
-                    intent.putExtra(URL, partitionsBean.getLives().get(position).getPlayurl());
-                    intent.putExtra(TITLE, partitionsBean.getLives().get(position).getTitle());
-                    intent.putExtra(ONLINE, partitionsBean.getLives().get(position).getOnline());
-                    mContect.startActivity(intent);
-                }
-            });*/
         }
     }
 

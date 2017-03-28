@@ -163,6 +163,7 @@ public class ShopHomeAdapter extends RecyclerView.Adapter {
         private final Context mContext;
         @BindView(R.id.my_grid_view)
         HotGridView myGridView;
+        private ShopAllAdapter adapter;
 
         ShopViewHolder(Context mContext, View view) {
             super(view);
@@ -171,8 +172,33 @@ public class ShopHomeAdapter extends RecyclerView.Adapter {
         }
 
         public void setData(List<ShopAllBean.ResultBean.RecordsBean> records) {
-            ShopAllAdapter adapter = new ShopAllAdapter(mContext , records);
+            adapter = new ShopAllAdapter(mContext , records);
             myGridView.setAdapter(adapter);
+
+            /*myGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (listener != null){
+                        listener.OnSetClickListener(view , position);
+                    }
+                }
+            });*/
+
         }
+
+//        /**
+//         * 定义接口回调
+//         */
+//        public interface OnClickListener{
+//            void OnSetClickListener(View v , int position);
+//        }
+//
+//        private OnClickListener listener;
+//
+//        public void setOnNumberChangesListener(OnClickListener listener) {
+//            this.listener = listener;
+//        }
     }
+
+
 }

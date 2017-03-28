@@ -1,6 +1,7 @@
 package com.myproject.bilibili.model.shopping.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
+import com.myproject.bilibili.model.shopping.activity.ShopInfoActivity;
 import com.myproject.bilibili.model.shopping.bean.ShopAllBean;
+import com.myproject.bilibili.utils.Constants;
 
 import java.util.List;
 
@@ -58,13 +61,27 @@ public class ShopAllAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ShopAllBean.ResultBean.RecordsBean recordsBean = records.get(position);
+        final ShopAllBean.ResultBean.RecordsBean recordsBean = records.get(position);
+
         holder.tvShopName.setText(recordsBean.getTitle());
         holder.tvShopPrice.setText(String.valueOf(recordsBean.getSalvePrice()));
         Glide.with(mContext).load(recordsBean.getImgUrl()).crossFade().into(holder.ivShop);
 
+        holder.itemCartView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(mContext , ShopInfoActivity.class);
+                intent.putExtra(Constants.IMAGE_URL , recordsBean.getImgUrl());
+                intent.putExtra(Constants.SKUID , recordsBean.getSkuId());
+                intent.putExtra(Constants.TITLE , recordsBean.getTitle());
+                intent.putExtra(Constants.PRICE , recordsBean.getSalvePrice());
+                mContext.startActivity(intent);
+            }
+        });
         return convertView;
     }
+
 
     static class ViewHolder {
         @BindView(R.id.iv_shop)
