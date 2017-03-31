@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_id">58dccd44</string>
+
     <string-array name="sections">
         <item>@string/section_live</item>
         <item>@string/section_recommend</item>
