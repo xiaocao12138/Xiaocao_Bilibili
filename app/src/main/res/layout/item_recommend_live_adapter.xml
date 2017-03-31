@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_light"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/item_cart_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/card_margin"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/card_view_background"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/live_item_layout_height"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/item_live_cover"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/live_item_image_height"
+                android:scaleType="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_tiny_padding">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="111111111111111"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:id="@+id/item_live_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/font_normal"
+                    android:textSize="@dimen/default_small_text_size"
+                    android:layout_marginLeft="@dimen/default_tiny_margin" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_tiny_padding">
+
+                <TextView
+                    android:id="@+id/item_live_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_alpha_45"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/default_tiny_text_size"
+                    android:layout_marginLeft="@dimen/video_info_count_text_margin_start"
+                    android:layout_alignParentLeft="true" />
+
+                <TextView
+                    android:id="@+id/item_live_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="2dp"
+                    android:drawablePadding="@dimen/default_tiny_margin"
+                    android:textColor="@color/black_alpha_45"
+                    android:textSize="@dimen/default_tiny_text_size"
+                    android:layout_marginRight="@dimen/video_info_count_text_margin_start"
+                    android:layout_alignParentRight="true"
+                    android:drawableLeft="@drawable/ic_watching" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

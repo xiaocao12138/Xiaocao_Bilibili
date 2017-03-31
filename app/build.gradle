@@ -88,8 +88,8 @@ dependencies {
     compile files('libs/MobTools-2016.1222.1756.jar')
     //二维码
     compile 'cn.yipianfengye.android:zxing-library:2.1'
-
     //哔哩哔哩官方视频播放器
+
     //  # required, enough for most devices.
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.7.8.1'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.8.1'
@@ -105,11 +105,15 @@ dependencies {
     //支付宝支付
     compile files('libs/alipaySdk-20160809.jar')
     //极光推送
-    compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
+    compile 'cn.jiguang.sdk:jpush:3.0.3'
+    // 此处以JPush 3.0.3 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.1'
+    // 此处以JCore 1.1.1 版本为例。
+
     //下载
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     //greendao
-    compile'org.greenrobot:greendao:3.0.1'
-    compile'org.greenrobot:greendao-generator:3.0.0'
+    compile 'org.greenrobot:greendao:3.0.1'
+    compile 'org.greenrobot:greendao-generator:3.0.0'
+    compile files('libs/Msc.jar')
 }
