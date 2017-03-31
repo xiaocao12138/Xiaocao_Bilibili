@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.found.bean.YuanChaungBean;
+import com.myproject.bilibili.utils.CommonUtil;
 
 import java.util.List;
 
@@ -59,10 +61,21 @@ public class YuanChaungAdapter extends BaseAdapter {
         YuanChaungBean.DataBean dataBean = data.get(position);
 
         holder.tvShu.setText(String.valueOf(position + 1));
-        Glide.with(mContext).load(dataBean.getCover()).crossFade().into(holder.imageview);
+
         holder.tvZhuti.setText(dataBean.getTitle());
         holder.upZhu.setText(dataBean.getName());
         holder.tvPingfen.setText(String.valueOf(dataBean.getPts()));
+
+        boolean networkAvailable = CommonUtil.isNetworkAvailable(mContext);
+        boolean isMobile = CommonUtil.isMobile(mContext);
+        if (networkAvailable){
+            if (isMobile){
+                holder.imageview.setImageResource(R.drawable.aa);
+                Toast.makeText(mContext, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+            }else {
+                Glide.with(mContext).load(dataBean.getCover()).crossFade().into(holder.imageview);
+            }
+        }
 
         return convertView;
     }

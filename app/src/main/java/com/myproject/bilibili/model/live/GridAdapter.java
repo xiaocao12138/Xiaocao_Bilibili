@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.live.activity.LiveInfoAcivity;
 import com.myproject.bilibili.model.live.bean.LiveBean;
+import com.myproject.bilibili.utils.CommonUtil;
 import com.myproject.bilibili.utils.Constants;
 import com.myproject.bilibili.view.CircleImageView;
 
@@ -66,18 +68,29 @@ public class GridAdapter extends BaseAdapter {
 
         final LiveBean.DataBean.PartitionsBean.LivesBean livesBean = partitions.get(position);
 
-        Glide.with(mContect)
-                .load(livesBean.getCover().getSrc())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.bili_default_image_tv)
-                .into(holder.itemLiveCover);
-        Glide.with(mContect)
-                .load(livesBean.getOwner().getFace())
-                .centerCrop()
-                .dontAnimate()
-                .placeholder(R.drawable.ico_user_default)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.itemLiveUserCover);
+        boolean networkAvailable = CommonUtil.isNetworkAvailable(mContect);
+        boolean isWifi = CommonUtil.isWifi(mContect);
+        if (networkAvailable){
+            if (!isWifi){
+                holder.itemLiveCover.setImageResource(R.drawable.aa);
+                holder.itemLiveUserCover.setImageResource(R.drawable.ico_user_default);
+                Toast.makeText(mContect, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+            }else {
+                Glide.with(mContect)
+                        .load(livesBean.getCover().getSrc())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.bili_default_image_tv)
+                        .into(holder.itemLiveCover);
+                Glide.with(mContect)
+                        .load(livesBean.getOwner().getFace())
+                        .centerCrop()
+                        .dontAnimate()
+                        .placeholder(R.drawable.ico_user_default)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.itemLiveUserCover);
+            }
+        }
+
         holder.itemLiveTitle.setText(livesBean.getTitle());
         holder.itemLiveUser.setText(livesBean.getOwner().getName());
         holder.itemLiveCount.setText(String.valueOf(livesBean.getOnline()));
@@ -91,6 +104,7 @@ public class GridAdapter extends BaseAdapter {
                 intent.putExtra(Constants.ONLINE, livesBean.getOnline());
                 intent.putExtra(Constants.USERNAME, livesBean.getOwner().getName());
                 intent.putExtra(Constants.IMAGE_URL, livesBean.getOwner().getFace());
+                intent.putExtra(Constants.DANMU, livesBean.getOwner().getFace());
                 mContect.startActivity(intent);
             }
         });

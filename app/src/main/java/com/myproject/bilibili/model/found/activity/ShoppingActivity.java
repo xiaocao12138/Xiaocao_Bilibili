@@ -57,6 +57,10 @@ public class ShoppingActivity extends AppCompatActivity {
      * 刚才被显示的fragment
      */
     private Fragment tempFragment;
+    /**
+     *  库存
+     */
+    private int skuInventory;
 
 
     @Override
@@ -65,6 +69,7 @@ public class ShoppingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping);
         ButterKnife.bind(this);
 
+//        skuInventory = getIntent().getIntExtra(Constants.NUMBER , 0);
         url = "http://bmall.bilibili.com/";
         initToolbar();
         initFragment();
@@ -148,7 +153,7 @@ public class ShoppingActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        int checkedid = intent.getIntExtra(Constants.CHECKEDID , R.id.rb_home);
+        int checkedid = getIntent().getIntExtra(Constants.CHECKEDID , R.id.rb_home);
         rgShop.check(checkedid);
     }
 

@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.Partition.bean.PartitionMoreBean;
 import com.myproject.bilibili.model.found.HuaTiActivity;
+import com.myproject.bilibili.utils.CommonUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,9 +70,19 @@ public class HDActivityAdapter extends RecyclerView.Adapter<HDActivityAdapter.Vi
         }
 
         public void setData(PartitionMoreBean.DataBean.BodyBean bodyBean) {
-            Glide.with(mContext).load(bodyBean.getCover()).crossFade().into(ivHuati);
-//            String btn = data.getTitle();
-//            String substring = btn.substring(0, btn.length() - 1);
+
+            boolean networkAvailable = CommonUtil.isNetworkAvailable(mContext);
+            boolean isMobile = CommonUtil.isMobile(mContext);
+            if (networkAvailable){
+                if (isMobile){
+                    ivHuati.setImageResource(R.drawable.aa);
+                    Toast.makeText(mContext, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+                }else {
+                    Glide.with(mContext).load(bodyBean.getCover()).crossFade().into(ivHuati);
+                }
+            }
+
+//            Glide.with(mContext).load(bodyBean.getCover()).crossFade().into(ivHuati);
             tvNameActivity.setText(bodyBean.getTitle());
 
             itemLiveLayout.setOnClickListener(new View.OnClickListener() {

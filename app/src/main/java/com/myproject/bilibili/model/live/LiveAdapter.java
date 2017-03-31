@@ -40,9 +40,6 @@ import butterknife.OnClick;
 
 public class LiveAdapter extends RecyclerView.Adapter {
 
-    public static final String TITLE = "title";
-    public static final String URL = "url";
-    public static final String ONLINE = "online";
     private final Context mContect;
 
     private final LayoutInflater inflater;
@@ -206,7 +203,6 @@ public class LiveAdapter extends RecyclerView.Adapter {
                     mContect.startActivity(new Intent(mContext, LiveCenterActivity.class));
                     break;
                 case R.id.vedio:
-//                    Toast.makeText(mContext, "小视频", Toast.LENGTH_SHORT).show();
                     mContect.startActivity(new Intent(mContext, SmallVideoActivity.class));
                     break;
                 case R.id.search:

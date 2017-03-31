@@ -14,10 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.myproject.bilibili.MyApplication;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.utils.CommonUtil;
-import com.myproject.bilibili.utils.ConstantUtil;
+import com.myproject.bilibili.utils.Constants;
 import com.myproject.bilibili.utils.PreferenceUtil;
+import com.myproject.bilibili.utils.greendao.User;
+import com.myproject.bilibili.utils.greendao.UserDao;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,15 +46,17 @@ public class LoginActivity extends AppCompatActivity {
     EditText etPassword;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    @BindView(R.id.btn_zhuce)
+    Button btnZhuce;
     private String Username;
     private String Password;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         initToolbar();
         initData();
         initListener();
@@ -64,6 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public UserDao getUserDao() {
+        return MyApplication.getInstance().getDaoSession().getUserDao();
     }
 
     private void initListener() {
@@ -123,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.delete_username, R.id.btn_login})
+    @OnClick({R.id.delete_username, R.id.btn_zhuce , R.id.btn_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.delete_username:
@@ -134,6 +145,30 @@ public class LoginActivity extends AppCompatActivity {
                 etUsername.setFocusable(true);
                 etUsername.setFocusableInTouchMode(true);
                 etUsername.requestFocus();
+                break;
+            case R.id.btn_zhuce:
+                if (!TextUtils.isEmpty(Username) || !TextUtils.isEmpty(Password)){
+                    return;
+                }
+
+                users = getUserDao().loadAll();
+                String userNames = etUsername.getText().toString().trim();
+                if (this.users.size() == 0) {
+                    User user = new User(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
+                    getUserDao().insert(user);
+                    Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    for (int i = 0; i < this.users.size(); i++) {
+                        if (userNames.equals(this.users.get(i).getUsername().toString())) {
+                            Toast.makeText(LoginActivity.this, "该帐号已经存在", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    User user = new User(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
+                    getUserDao().insert(user);
+                    Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.btn_login:
@@ -151,19 +186,26 @@ public class LoginActivity extends AppCompatActivity {
 
         Username = etUsername.getText().toString().trim();
         Password = etPassword.getText().toString().trim();
-        
-        if (TextUtils.isEmpty(Username)) {
-            Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+
+        if (TextUtils.isEmpty(Username) || TextUtils.isEmpty(Password)) {
+            Toast.makeText(this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(Password)) {
-            Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
-            return;
+        List<User> user = getUserDao().loadAll();
+        for (User list : user) {
+            String userName = list.getUsername();
+            String passWord = list.getPassword();
+            if (Username.equals(userName) && Password.equals(passWord)) {
+                PreferenceUtil.putBoolean(Constants.KEY, true);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra(Constants.NAME , Username);
+                startActivity(intent);
+                finish();
+            }else {
+                Toast.makeText(LoginActivity.this, "账户或密码错误", Toast.LENGTH_SHORT).show();
+
+            }
         }
-        PreferenceUtil.putBoolean(ConstantUtil.KEY, true);
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        finish();
     }
-
 }

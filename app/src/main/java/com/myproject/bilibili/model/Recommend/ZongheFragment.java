@@ -142,7 +142,7 @@ public class ZongheFragment extends BaseFragment {
             adapter = new ZongheAdapter(mContext, data);
             recycle.setAdapter(adapter);
             //设置布局管理
-            GridLayoutManager manager = new GridLayoutManager(mContext, 2);
+            GridLayoutManager manager =  new GridLayoutManager(mContext, 2);
 
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override

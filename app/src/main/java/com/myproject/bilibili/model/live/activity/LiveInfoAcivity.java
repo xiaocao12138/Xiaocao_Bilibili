@@ -23,8 +23,12 @@ import com.myproject.bilibili.model.live.fragment.HuDongFragment;
 import com.myproject.bilibili.utils.Constants;
 import com.myproject.bilibili.view.CircleImageView;
 import com.myproject.bilibili.widget.media.IjkVideoView;
+import com.opendanmaku.DanmakuItem;
+import com.opendanmaku.DanmakuView;
+import com.opendanmaku.IDanmakuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,6 +64,9 @@ public class LiveInfoAcivity extends AppCompatActivity {
     TableLayout hudView;
     @BindView(R.id.ib_start)
     ImageButton ibStart;
+    @BindView(R.id.danmakuView)
+    DanmakuView danmakuView;
+
     private List<BaseFragment> baseFragments;
     private String url;
     private String title;
@@ -93,6 +100,7 @@ public class LiveInfoAcivity extends AppCompatActivity {
             return;
         }
         ijkPlayer.start();
+        getDanmakuView();
 
         tvHomeName.setText(title);
         tvUserName.setText(username);
@@ -101,16 +109,56 @@ public class LiveInfoAcivity extends AppCompatActivity {
 
     }
 
+    public void getDanmakuView() {
+        //显示弹幕
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < 1000 ; i++) {
+            strings.add("00000000000000000");
+            strings.add("111111111111111111111111111");
+            strings.add("2222222222222222");
+            strings.add("3333333333333333333");
+            strings.add("44444444444444444");
+            strings.add("55555555555555555");
+            strings.add("6666666666666666666666");
+            strings.add("77777777777777777777");
+        }
+
+        if (strings != null && strings.size() > 0) {
+            //有弹幕数据
+            List<IDanmakuItem> list = initItems(danmakuView, strings);
+            Collections.shuffle(list);
+            danmakuView.addItem(list, true);
+            danmakuView.show();
+            danmakuView.setVisibility(View.VISIBLE);
+        } else {
+            danmakuView.hide();
+            danmakuView.setVisibility(View.GONE);
+        }
+    }
+
+    private List<IDanmakuItem> initItems(DanmakuView danmakuView, List<String> strings) {
+        List<IDanmakuItem> list = new ArrayList<>();
+        for (int i = 0; i < strings.size() ; i++) {
+            IDanmakuItem item = new DanmakuItem(LiveInfoAcivity.this, strings.get(i), danmakuView.getWidth());
+            list.add(item);
+        }
+        return list;
+    }
+
     @Override
     public void onBackPressed() {
         mBackPressed = true;
-
         super.onBackPressed();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        stopPlayer();
+
+    }
+
+    public void stopPlayer(){
 
         if (mBackPressed || !ijkPlayer.isBackgroundPlayEnabled()) {
             ijkPlayer.stopPlayback();
@@ -120,7 +168,9 @@ public class LiveInfoAcivity extends AppCompatActivity {
             ijkPlayer.enterBackground();
         }
         IjkMediaPlayer.native_profileEnd();
+
     }
+
 
     private void getData() {
         Intent intent = getIntent();
@@ -148,8 +198,10 @@ public class LiveInfoAcivity extends AppCompatActivity {
         baseFragments.add(new HuDongFragment());
     }
 
+    private boolean isPlayer;
+
     @OnClick({R.id.tv_guan_zhu, R.id.iv_send_liwu,
-            R.id.edt_input_dm, R.id.iv_send_dm ,
+            R.id.edt_input_dm, R.id.iv_send_dm,
             R.id.ib_start})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -168,8 +220,16 @@ public class LiveInfoAcivity extends AppCompatActivity {
                 Toast.makeText(this, "发送弹幕", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ib_start:
-                setData();
-                ibStart.setVisibility(View.GONE);
+                if (!isPlayer){
+                    setData();
+                    isPlayer = true;
+                    ibStart.setImageResource(R.drawable.bili_player_play_can_pause);
+                }else {
+                    stopPlayer();
+                    isPlayer = false;
+                    ibStart.setImageResource(R.drawable.bili_player_play_can_play);
+                }
+
                 break;
         }
     }

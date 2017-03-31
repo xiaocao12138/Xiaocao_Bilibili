@@ -43,11 +43,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent intent ;
                 boolean isLogin = PreferenceUtil.getBoolean(ConstantUtil.KEY, false);
                 if (isLogin) {
-                     intent = new Intent(WelcomeActivity.this, MainActivity.class);
+
+                    intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 } else {
+
                     intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 }
+
                 startActivity(intent);
+
                 finish();
             }
 

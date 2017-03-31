@@ -50,41 +50,6 @@ public class ShopHomeFragment extends BaseFragment {
         getDataFromNet01();
     }
 
-    /*private void setWebViewData(String url) {
-        WebSettings settings = webview.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setBuiltInZoomControls(true);
-        settings.setUseWideViewPort(true);
-
-        //设置检索缓存的
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
-        //设置不跳转到系统的浏览器
-        webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    view.loadUrl(request.getUrl().toString());
-                }
-                return true;
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                progressbar.setVisibility(View.GONE);
-            }
-        });
-
-        webview.loadUrl(url);
-    }*/
-
     private void getDataFromNet01() {
         OkHttpUtils.get()
                 .url(AppNetConfig.SHOPPING)

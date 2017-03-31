@@ -119,34 +119,6 @@ public class HuDongFragment extends BaseFragment {
 
     private void processData(String json) {
 
-
-        /*if (!isLoadMore){
-            RecommendBean recommendBean = JSON.parseObject(json, RecommendBean.class);
-            data = recommendBean.getData();
-            setAdapter();
-        }else {
-            RecommendBean bean = JSON.parseObject(json, RecommendBean.class);
-            data.addAll(bean.getData());
-            //刷新适配器
-            adapter.notifyDataSetChanged();//getCount-->getView
-        }*/
-
-//        LiveInfoBean liveInfoBean = JSON.parseObject(json, LiveInfoBean.class);
-//
-//        hotWord = liveInfoBean.getData().getHot_word();
-
-        /*if (!isLoadMore){
-            LiveInfoBean liveInfoBean = JSON.parseObject(json, LiveInfoBean.class);
-
-            hotWord = liveInfoBean.getData().getHot_word();
-        }else {
-            LiveInfoBean liveInfoBean = JSON.parseObject(json, LiveInfoBean.class);
-
-            List<LiveInfoBean.DataBean.HotWordBean> hot_word = liveInfoBean.getData().getHot_word();
-
-            hotWord.addAll(hot_word.get(1).getWords());
-        }*/
-
         LiveInfoBean liveInfoBean = JSON.parseObject(json, LiveInfoBean.class);
 
         hotWord = liveInfoBean.getData().getHot_word();

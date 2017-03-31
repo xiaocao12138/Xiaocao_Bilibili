@@ -3,7 +3,7 @@
     android:id="@+id/ll_empty_shopcart"
     android:layout_width="match_parent"
     android:background="#fff"
-    android:visibility="visible"
+    android:visibility="gone"
     android:layout_height="match_parent">
 
     <RelativeLayout

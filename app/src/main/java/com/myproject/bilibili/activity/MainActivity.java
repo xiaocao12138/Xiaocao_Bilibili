@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myproject.bilibili.R;
@@ -29,6 +30,7 @@ import com.myproject.bilibili.model.found.TabMoreAcivity;
 import com.myproject.bilibili.model.live.LiveFragment;
 import com.myproject.bilibili.search.SearchFragment;
 import com.myproject.bilibili.search.custom.IOnSearchClickListener;
+import com.myproject.bilibili.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +55,12 @@ public class MainActivity extends AppCompatActivity
     AppBarLayout appBar;
     @BindView(R.id.navigation_layout)
     LinearLayout navigationLayout;
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
 
     private List<BaseFragment> baseFragments;
     private SearchFragment searchFragment;
+    private String Username;
 
 
     @Override
@@ -64,11 +69,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        initData();
         searchFragment = SearchFragment.newInstance();
         toolbar.inflateMenu(R.menu.menu_main);
         initFramgent();
         initListener();
 
+    }
+
+    private void initData() {
+        Username = getIntent().getStringExtra(Constants.NAME);
+        tvUserName.setText(Username);
     }
 
     private void initListener() {
@@ -88,21 +99,17 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                int menuItemId = item.getItemId();
-
-                if (menuItemId == R.id.id_action_download) {
-                    Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(MainActivity.this, SearchActivity.class).putExtra("search", ""));
-
-                } else if (menuItemId == R.id.id_action_search) {
-//                    Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(MainActivity.this, TabMoreAcivity.class));
-                    searchFragment.show(getSupportFragmentManager(),SearchFragment.TAG);
+                switch (item.getItemId()){
+                    case R.id.id_action_download:
+                        startActivity(new Intent(MainActivity.this, DownLoadingActivity.class).putExtra("search", ""));
+                        break;
+                    case R.id.id_action_search:
+                        searchFragment.show(getSupportFragmentManager(), SearchFragment.TAG);
+                        break;
                 }
                 return true;
             }
@@ -137,9 +144,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.item_home:
-
                 drawerLayout.closeDrawers();
                 break;
             case R.id.item_vip:

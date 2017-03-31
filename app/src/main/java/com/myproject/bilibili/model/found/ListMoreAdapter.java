@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.found.bean.TAgBean;
+import com.myproject.bilibili.utils.CommonUtil;
 
 import java.util.List;
 
@@ -57,9 +59,21 @@ public class ListMoreAdapter extends BaseAdapter {
         }
 
         TAgBean.DataBean.ItemsBean.ArchiveBean archiveBean = archive.get(position);
-        Glide.with(mContext).load(archiveBean.getCover()).into(holder.ivIcon);
+//        Glide.with(mContext).load(archiveBean.getCover()).into(holder.ivIcon);
         holder.tvName.setText(archiveBean.getTitle());
         holder.tvDuration.setText(archiveBean.getDuration());
+
+
+        boolean networkAvailable = CommonUtil.isNetworkAvailable(mContext);
+        boolean isMobile = CommonUtil.isMobile(mContext);
+        if (networkAvailable){
+            if (isMobile){
+                holder.ivIcon.setImageResource(R.drawable.aa);
+                Toast.makeText(mContext, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+            }else {
+                Glide.with(mContext).load(archiveBean.getCover()).into(holder.ivIcon);
+            }
+        }
 
         return convertView;
     }

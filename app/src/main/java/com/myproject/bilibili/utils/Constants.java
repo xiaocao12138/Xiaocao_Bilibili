@@ -23,5 +23,14 @@ public class Constants {
 
     public static final String CHECKEDID =  "checkedid";
 
+    public static final String NUMBER =  "number";
+
+    public static final String KEY = "login";
+
+    public static final String DANMU = "danmu";
+
+    public static final String NAME = "name";
+
+
 //    public static final String LINK = "link";
 }

@@ -120,19 +120,42 @@
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/btn_login"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/login_button_height"
-        android:layout_marginBottom="@dimen/default_general_margin"
-        android:layout_marginLeft="@dimen/default_general_margin"
-        android:layout_marginRight="@dimen/default_general_margin"
-        android:layout_marginTop="@dimen/default_long_margin"
-        android:gravity="center"
-        android:background="@android:color/holo_red_dark"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="@dimen/default_medium_text_size" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_zhuce"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@android:color/holo_red_dark"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_medium_text_size" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@android:color/holo_red_dark"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_medium_text_size" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

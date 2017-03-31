@@ -17,8 +17,20 @@
             <com.myproject.bilibili.widget.media.IjkVideoView
                 android:id="@+id/ijk_player"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="match_parent"
                 android:visibility="visible"/>
+
+
+            <com.opendanmaku.DanmakuView
+                android:id="@+id/danmakuView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:end_Y_offset="0.8"
+                app:max_row="4"
+                app:max_running_per_row="2"
+                app:pick_interval="500"
+                app:show_debug="false"
+                app:start_Y_offset="0.2" />
 
             <TableLayout
                 android:id="@+id/hud_view"
@@ -39,6 +51,8 @@
                 android:id="@+id/ib_start"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_player_play_selected"/>
 

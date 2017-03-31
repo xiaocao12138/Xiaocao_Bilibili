@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.Recommend.bean.RecommendBean;
+import com.myproject.bilibili.utils.CommonUtil;
+import com.myproject.bilibili.utils.NumberUtil;
 
 import java.util.List;
 
@@ -46,11 +48,23 @@ public class ZongheAdapter extends RecyclerView.Adapter<ZongheAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvRecomName.setText(data.get(position).getTname());
         holder.tvTypeName.setText(data.get(position).getTitle());
-        Glide.with(mContext).load(data.get(position).getCover()).into(holder.ivRecommend);
-        holder.tvPlayNumber.setText(String.valueOf(data.get(position).getPlay()));
+
+        holder.tvPlayNumber.setText(NumberUtil.converString(data.get(position).getPlay()));
         holder.tvDanmuNumber.setText(String.valueOf(data.get(position).getDanmaku()));
         holder.tvVedioDuration.setText(String.valueOf(data.get(position).getDuration()));
-        holder.tvPlayNumber.setText(String.valueOf(data.get(position).getPlay()));
+//        holder.tvPlayNumber.setText(String.valueOf(data.get(position).getPlay()));
+
+        boolean networkAvailable = CommonUtil.isNetworkAvailable(mContext);
+        boolean isMobile = CommonUtil.isMobile(mContext);
+        if (networkAvailable){
+            if (isMobile){
+                holder.ivRecommend.setImageResource(R.drawable.aa);
+                Toast.makeText(mContext, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+            }else {
+                Glide.with(mContext).load(data.get(position).getCover()).into(holder.ivRecommend);
+            }
+        }
+
     }
 
     @Override

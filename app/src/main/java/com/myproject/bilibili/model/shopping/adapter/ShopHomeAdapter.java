@@ -64,11 +64,6 @@ public class ShopHomeAdapter extends RecyclerView.Adapter {
         return currentType;
     }
 
-    /*@Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }*/
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == BANNER) {
@@ -175,30 +170,7 @@ public class ShopHomeAdapter extends RecyclerView.Adapter {
             adapter = new ShopAllAdapter(mContext , records);
             myGridView.setAdapter(adapter);
 
-            /*myGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (listener != null){
-                        listener.OnSetClickListener(view , position);
-                    }
-                }
-            });*/
-
         }
-
-//        /**
-//         * 定义接口回调
-//         */
-//        public interface OnClickListener{
-//            void OnSetClickListener(View v , int position);
-//        }
-//
-//        private OnClickListener listener;
-//
-//        public void setOnNumberChangesListener(OnClickListener listener) {
-//            this.listener = listener;
-//        }
     }
-
 
 }

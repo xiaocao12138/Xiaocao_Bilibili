@@ -22,12 +22,16 @@ import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.found.activity.ShoppingActivity;
 import com.myproject.bilibili.model.shopping.bean.ShopInfoBean;
+import com.myproject.bilibili.model.shopping.database.bean.GoodsBean;
+import com.myproject.bilibili.model.shopping.database.dao.GoodsDao;
 import com.myproject.bilibili.model.shopping.view.AddSubView;
 import com.myproject.bilibili.utils.AppNetConfig;
 import com.myproject.bilibili.utils.Constants;
 import com.myproject.bilibili.utils.VirtualkeyboardHeight;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,12 +68,15 @@ public class ShopInfoActivity extends AppCompatActivity {
     private String Attributename;
     private String Attributevalue;
     private String imageUrl;
+    private GoodsDao dao;
+    private List<GoodsBean> allGoods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_info);
         ButterKnife.bind(this);
+        dao = new GoodsDao(this);
         getData();
         getDataFromNet(shopInfoUrl);
     }
@@ -139,12 +146,31 @@ public class ShopInfoActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.btn_good_info_addcart:
-                showPopwindow();
+                isFindMail(currSku.getSkuId());
+                showPopwindow(currSku.getSkuId());
                 break;
         }
     }
 
-    private void showPopwindow() {
+    //默认
+    private int number = 1;
+
+    private boolean isAdd;
+
+    //判断商品是否已经添加过 如果添加过记录 记录数量 如果没添加过默认数量1
+    private void isFindMail(int skuid) {
+        allGoods = dao.getAllGoods();
+        for (int i = 0; i < allGoods.size(); i++) {
+            if (allGoods.get(i).getSkuid() == skuid) {
+//                number = allGoods.get(i).getNumber();
+                isAdd = true;
+                return;
+            }
+        }
+        isAdd = false;
+    }
+
+    private void showPopwindow(final int skuid) {
 // 1 利用layoutInflater获得View
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.popupwindow_add_product, null);
@@ -175,6 +201,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         TextView attribute_value = (TextView) view.findViewById(R.id.attribute_value);
         TextView shopSkuInventoryNumber = (TextView) view.findViewById(R.id.shop_skuInventory_number);
 
+
         //加载图片
         Glide.with(ShopInfoActivity.this).load(imageUrl).into(iv_goodinfo_photo);
         //设置数据
@@ -186,7 +213,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         shopSkuInventoryNumber.setText(String.valueOf(skuInventory));
 
         // 设置最大值和当前值
-        nas_goodinfo_num.setValue(1);
+        nas_goodinfo_num.setValue(number);
         nas_goodinfo_num.setMaxValue(skuInventory);
 
         //总价
@@ -195,7 +222,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         nas_goodinfo_num.setOnNumberChangesListener(new AddSubView.OnNumberChangesListener() {
             @Override
             public void OnSetNumberChanges(int value) {
-
+                number = value;
             }
         });
 
@@ -203,9 +230,19 @@ public class ShopInfoActivity extends AppCompatActivity {
         bt_goodinfo_confim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GoodsBean goodsBean = new GoodsBean();
                 //添加到购物车
 //                CartStorage.getInstance(mContext).addData(tempGoodsBean);
 //                Log.e("TAG", "66:" + tempGoodsBean.toString());
+                if(isAdd) {
+                    if(dao.getGoodsBySkuID(skuid) == goodsBean){
+                        number += goodsBean.getNumber();
+                        dao.updataGoods(new GoodsBean(skuid, number , salePrice , skuName , imageUrl));
+                    }
+                }else{
+                    dao.AddGoods(new GoodsBean(skuid, number , salePrice , skuName , imageUrl));
+                }
+
                 Toast.makeText(ShopInfoActivity.this, "添加购物车成功", Toast.LENGTH_SHORT).show();
                 window.dismiss();
 

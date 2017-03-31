@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.model.shopping.activity.ShopInfoActivity;
 import com.myproject.bilibili.model.shopping.bean.ShopAllBean;
+import com.myproject.bilibili.utils.CommonUtil;
 import com.myproject.bilibili.utils.Constants;
 
 import java.util.List;
@@ -65,7 +67,21 @@ public class ShopAllAdapter extends BaseAdapter {
 
         holder.tvShopName.setText(recordsBean.getTitle());
         holder.tvShopPrice.setText(String.valueOf(recordsBean.getSalvePrice()));
-        Glide.with(mContext).load(recordsBean.getImgUrl()).crossFade().into(holder.ivShop);
+
+        boolean networkAvailable = CommonUtil.isNetworkAvailable(mContext);
+        boolean isMobile = CommonUtil.isMobile(mContext);
+        if (networkAvailable){
+            if (isMobile){
+                holder.ivShop.setImageResource(R.drawable.aa);
+                Toast.makeText(mContext, "非wifi状态下不显示图片", Toast.LENGTH_SHORT).show();
+            }else {
+                Glide.with(mContext).load(recordsBean.getImgUrl()).crossFade().into(holder.ivShop);
+            }
+        }else {
+            Toast.makeText(mContext, "联网失败", Toast.LENGTH_SHORT).show();
+        }
+
+//        Glide.with(mContext).load(recordsBean.getImgUrl()).crossFade().into(holder.ivShop);
 
         holder.itemCartView.setOnClickListener(new View.OnClickListener() {
             @Override

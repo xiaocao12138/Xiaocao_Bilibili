@@ -100,7 +100,7 @@ public class BannerInfoActivity extends AppCompatActivity {
 //        title = getIntent().getStringExtra(LiveAdapter.TITLE);
 //        url = getIntent().getStringExtra(LiveAdapter.URL);
         url = getIntent().getStringExtra(Constants.URL);
-        title = getIntent().getStringExtra(Constants.TITLE);
+
 //        url = getIntent().getStringExtra(Constants.LINK);
 //        title = getIntent().getStringExtra(Constants.TITLE);
 //        toolbar.setTitle(title);

@@ -12,4 +12,14 @@
     <declare-styleable name="IjkListPreference">
         <attr name="entrySummaries" />
     </declare-styleable>
+
+    <declare-styleable name="progress">
+        <attr name="sweepArc" format="integer"/>
+        <attr name="progressWidth" format="dimension"/>
+        <attr name="bgColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="srcColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+
 </resources>
