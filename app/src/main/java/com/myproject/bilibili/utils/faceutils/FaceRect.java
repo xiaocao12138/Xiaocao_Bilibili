@@ -1,4 +1,4 @@
-package com.myproject.bilibili.faceutils.util;
+package com.myproject.bilibili.utils.faceutils;
 
 import android.graphics.Point;
 import android.graphics.Rect;
