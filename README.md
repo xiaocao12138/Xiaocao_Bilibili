@@ -1,11 +1,11 @@
 # MyBilibili
 1、仿B站的直播，视频播放，购物，下载等。.
-2、模仿bilibili，使用IJKPlayer实现直播播功能。
+2、模仿bilibili，使用哔哩哔哩官方IJKPlayer实现直播和视频播放功能。
 3、集成第三方的下载功能，集成仿B站的搜索界面的功能。
 4、实现购物车功能，集成支付宝等第三方支付。
 5、集成极光推送，集成第三方的流布局效果。
-6、使用OkHttp实现联网请求。
-7、使用Open弹幕，实现弹幕功能。
+6、使用OkHttpUtils实现联网请求。
+7、使用Open弹幕，实现弹幕可输入显示功能。
 8、多次使用RecycleView和在自定义的GridView实现一级页面的布局。
 9、实现TabLayout和ViewPager的使用，实现复制功能。
 10、ToolBar的使用。
