@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.myproject.bilibili.model.found.activity.ShoppingActivity">
+    tools:context="com.myproject.bilibili.com.myproject.mymodel.found.view.activity.ShoppingActivity">
 
 
     <android.support.design.widget.AppBarLayout

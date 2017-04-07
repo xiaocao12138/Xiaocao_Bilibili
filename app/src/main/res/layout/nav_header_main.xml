@@ -27,7 +27,7 @@
         android:orientation="horizontal"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <com.myproject.bilibili.view.CircleImageView
+        <com.myproject.mymodel.utils.CircleImageView
             android:id="@+id/user_avatar_view"
             android:layout_width="74dp"
             android:layout_height="74dp"

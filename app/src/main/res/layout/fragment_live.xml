@@ -21,15 +21,6 @@
             android:overScrollMode="never"
             android:scrollbars="none" />
 
-        <Button
-            android:id="@+id/but_load_more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:layout_margin="30dp"
-            android:text="查看更多"
-            android:textSize="16sp"/>
-
     </LinearLayout>
 
 

@@ -8,8 +8,8 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.utils.ConstantUtil;
-import com.myproject.bilibili.utils.PreferenceUtil;
+import com.myproject.mymodel.utils.ConstantUtil;
+import com.myproject.mymodel.utils.PreferenceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

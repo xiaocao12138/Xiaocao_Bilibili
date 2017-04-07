@@ -64,7 +64,7 @@
             android:layout_height="80dp"
             android:background="@android:color/white">
 
-            <com.myproject.bilibili.view.CircleImageView
+            <com.myproject.mymodel.utils.CircleImageView
                 android:id="@+id/iv_head"
                 android:layout_width="70dp"
                 android:layout_height="70dp"

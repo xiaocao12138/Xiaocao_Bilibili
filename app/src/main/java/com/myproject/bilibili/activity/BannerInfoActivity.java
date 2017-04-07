@@ -19,8 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.utils.ClipboardUtil;
-import com.myproject.bilibili.utils.Constants;
+import com.myproject.mymodel.utils.ClipboardUtil;
+import com.myproject.mymodel.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -13,12 +13,6 @@ import okio.ForwardingSource;
 import okio.Okio;
 import okio.Source;
 
-/**
- * Created by 李金桐 on 2017/3/24.
- * QQ: 474297694
- * 功能: xxxx
- */
-
 public class ProgressResponseBody extends ResponseBody {
 
     private final ResponseBody responseBody;

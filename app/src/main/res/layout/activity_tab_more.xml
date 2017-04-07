@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray_light_30"
-    tools:context="com.myproject.bilibili.model.found.TabMoreAcivity">
+    tools:context="com.myproject.bilibili.com.myproject.mymodel.found.view.activity.TabMoreAcivity">
 
 
     <EditText

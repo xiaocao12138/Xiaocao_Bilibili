@@ -13,13 +13,6 @@ import android.view.View;
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.download.utils.BitmapUtils;
 
-
-/**
- * Created by 李金桐 on 2017/3/13.
- * QQ: 474297694
- * 功能: 自定义进度条
- */
-
 public class MyProgressBar extends View {
 
     private int viewHeight;

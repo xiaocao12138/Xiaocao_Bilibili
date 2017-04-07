@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import com.myproject.bilibili.MyApplication;
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.utils.CommonUtil;
-import com.myproject.bilibili.utils.Constants;
-import com.myproject.bilibili.utils.PreferenceUtil;
-import com.myproject.bilibili.utils.greendao.User;
-import com.myproject.bilibili.utils.greendao.UserDao;
+import com.myproject.mymodel.utils.greendao.User;
+import com.myproject.mymodel.utils.greendao.UserDao;
+import com.myproject.mymodel.utils.CommonUtil;
+import com.myproject.mymodel.utils.Constants;
+import com.myproject.mymodel.utils.PreferenceUtil;
 
 import java.util.List;
 

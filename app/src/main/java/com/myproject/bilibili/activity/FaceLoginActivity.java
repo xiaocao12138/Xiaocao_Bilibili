@@ -32,7 +32,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechUtility;
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.utils.faceutils.FaceUtil;
+import com.myproject.mymodel.utils.faceutils.FaceUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;

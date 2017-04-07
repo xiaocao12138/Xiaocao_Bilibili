@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_drawer_home" />
 
-                <com.myproject.bilibili.view.CircleImageView
+                <com.myproject.mymodel.utils.CircleImageView
                     android:id="@+id/toolbar_user_avatar"
                     android:layout_width="34dp"
                     android:layout_height="34dp"

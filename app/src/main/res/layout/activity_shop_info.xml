@@ -6,7 +6,7 @@
      android:layout_height="match_parent"
      android:orientation="vertical"
      android:background="#fff"
-     tools:context="com.myproject.bilibili.model.shopping.activity.ShopInfoActivity">
+     tools:context="com.myproject.bilibili.com.myproject.mymodel.shopping.view.activity.ShopInfoActivity">
 
     <ScrollView
         android:layout_width="match_parent"

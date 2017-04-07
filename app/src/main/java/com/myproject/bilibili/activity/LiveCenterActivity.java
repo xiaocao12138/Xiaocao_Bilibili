@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.myproject.bilibili.R;
-import com.myproject.bilibili.view.CircleImageView;
+import com.myproject.mymodel.utils.CircleImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

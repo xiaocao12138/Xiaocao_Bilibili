@@ -8,7 +8,7 @@
 
     <include layout="@layout/type_head" />
 
-    <com.myproject.bilibili.view.HotGridView
+    <com.myproject.mymodel.utils.HotGridView
         android:id="@+id/gv_live"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

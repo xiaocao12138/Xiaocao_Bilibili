@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -16,9 +15,14 @@
     <!-- 蓝牙分享所需的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- 联网权限 -->
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!-- 应用M签名 -->
     <!-- db50c75b108492ab765cb53aeee88ccd -->
@@ -117,17 +121,17 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".model.found.XingquActivity" />
-        <activity android:name=".model.found.HuaTiActivity" />
-        <activity android:name=".model.found.HuodongActivity" />
-        <activity android:name=".model.found.OriginalActivity" />
-        <activity android:name=".model.found.TabMoreAcivity" />
+        <activity android:name="com.myproject.mymodel.found.view.activity.XingquActivity" />
+        <activity android:name="com.myproject.mymodel.found.view.activity.HuaTiActivity" />
+        <activity android:name="com.myproject.mymodel.found.view.activity.HuodongActivity" />
+        <activity android:name="com.myproject.mymodel.found.view.activity.OriginalActivity" />
+        <activity android:name="com.myproject.mymodel.found.view.activity.TabMoreAcivity" />
         <activity android:name=".activity.BannerInfoActivity" />
         <activity android:name=".activity.LiveCenterActivity" />
-        <activity android:name=".model.Recommend.activity.RecommendTagActivity" />
-        <activity android:name=".model.live.activity.SmallVideoActivity" />
+        <activity android:name="com.myproject.mymodel.recommend.view.activity.RecommendTagActivity" />
+        <activity android:name="com.myproject.mymodel.live.view.activity.SmallVideoActivity" />
         <activity
-            android:name=".model.live.activity.LiveInfoAcivity"
+            android:name="com.myproject.mymodel.live.view.activity.LiveInfoAcivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="user"
@@ -158,9 +162,9 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name" />
 
-        <activity android:name=".model.found.activity.ShoppingActivity" />
-        <activity android:name=".model.shopping.activity.ShopInfoActivity" />
-        <activity android:name=".activity....." />
+        <activity android:name="com.myproject.mymodel.found.view.activity.ShoppingActivity" />
+        <activity android:name="com.myproject.mymodel.shopping.view.activity.ShopInfoActivity" />
+        <activity android:name=".activity.DownLoadingActivity" />
         <activity android:name=".activity.FaceLoginActivity"></activity>
     </application>
 

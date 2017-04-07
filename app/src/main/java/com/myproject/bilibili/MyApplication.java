@@ -3,8 +3,8 @@ package com.myproject.bilibili;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.myproject.bilibili.utils.greendao.DaoMaster;
-import com.myproject.bilibili.utils.greendao.DaoSession;
+import com.myproject.mymodel.utils.greendao.DaoMaster;
+import com.myproject.mymodel.utils.greendao.DaoSession;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import cn.jpush.android.api.JPushInterface;
@@ -58,9 +58,11 @@ public class MyApplication extends Application {
         mDaoMaster = new DaoMaster(db);
         mDaoSession = mDaoMaster.newSession();
     }
+
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
+
     public SQLiteDatabase getDb() {
         return db;
     }

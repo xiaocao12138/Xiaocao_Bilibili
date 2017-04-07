@@ -21,16 +21,16 @@ import android.widget.Toast;
 
 import com.myproject.bilibili.R;
 import com.myproject.bilibili.adapter.MainPageAdapter;
-import com.myproject.bilibili.base.BaseFragment;
-import com.myproject.bilibili.model.Cartoon.fragment.CartoonFragment;
-import com.myproject.bilibili.model.Partition.PartitionFragment;
-import com.myproject.bilibili.model.Recommend.RecommendFragment;
-import com.myproject.bilibili.model.found.FoundFragment;
-import com.myproject.bilibili.model.found.TabMoreAcivity;
-import com.myproject.bilibili.model.live.LiveFragment;
-import com.myproject.bilibili.search.SearchFragment;
+import com.myproject.mymodel.base.BaseFragment;
+import com.myproject.mymodel.found.view.fragment.FoundFragment;
+import com.myproject.mymodel.found.view.activity.TabMoreAcivity;
+import com.myproject.bilibili.search.fragment.SearchFragment;
 import com.myproject.bilibili.search.custom.IOnSearchClickListener;
-import com.myproject.bilibili.utils.Constants;
+import com.myproject.mymodel.cartoon.view.CartoonFragment;
+import com.myproject.mymodel.live.view.LiveFragment;
+import com.myproject.mymodel.partition.view.PartitionFragment;
+import com.myproject.mymodel.recommend.view.RecommendFragment;
+import com.myproject.mymodel.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
-
 
     private void initFramgent() {
         baseFragments = new ArrayList<>();

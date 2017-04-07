@@ -1,10 +1,5 @@
 package com.myproject.bilibili.download.listener;
 
-/**
- * Created by 李金桐 on 2017/3/27.
- * QQ: 474297694
- * 功能: xxxx
- */
 
 public interface ResponseListener {
     /**

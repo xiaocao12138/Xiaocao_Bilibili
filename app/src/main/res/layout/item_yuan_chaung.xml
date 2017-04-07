@@ -14,7 +14,7 @@
         android:textColor="#fb7299"
         android:textSize="30dp" />
 
-    <com.myproject.bilibili.view.CircleImageView
+    <com.myproject.mymodel.utils.CircleImageView
         android:id="@+id/imageview"
         android:layout_width="130dp"
         android:layout_height="130dp"

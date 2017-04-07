@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.myproject.bilibili.model.live.activity.SmallVideoActivity">
+    tools:context="com.myproject.bilibili.com.myproject.mymodel.live.view.activity.SmallVideoActivity">
 
     <TextView
         android:layout_width="wrap_content"
